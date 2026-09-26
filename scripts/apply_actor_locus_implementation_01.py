@@ -79,44 +79,80 @@ def validate_baseline() -> None:
         fail("baseline validation failed; no ACTOR-LOCUS mutation attempted")
 
 
-def update_locus_vocab() -> None:
-    rel = "vocab/locus.yaml"
-    data = load_yaml(rel)
-    values = data.get("values")
-    if not isinstance(values, list):
-        fail(f"{rel}: missing values list")
+def insert_yaml_list_value_after(
+    rel: str,
+    list_key: str,
+    after_value: str,
+    new_value: str,
+) -> None:
+    text = read(rel)
+    data = yaml.safe_load(text)
+    if not isinstance(data, dict):
+        fail(f"{rel}: expected mapping")
 
-    if "actor" not in values:
-        try:
-            idx = values.index("artifact") + 1
-        except ValueError:
-            fail(f"{rel}: artifact value not found")
-        values.insert(idx, "actor")
-        write(rel, dump_yaml(data))
+    if rel == "vocab/locus.yaml":
+        values = data.get(list_key)
     else:
-        print(f"UNCHANGED: {rel} already contains actor")
+        try:
+            values = data["properties"]["locus"]["items"]["enum"]
+        except Exception:
+            fail(f"{rel}: locus enum path not found")
+
+    if not isinstance(values, list):
+        fail(f"{rel}: target list not found")
+
+    if new_value in values:
+        print(f"UNCHANGED: {rel} already contains {new_value}")
+        return
+
+    if after_value not in values:
+        fail(f"{rel}: anchor value {after_value!r} not found")
+
+    lines = text.splitlines(keepends=True)
+    candidate_indexes = []
+    pattern = re.compile(
+        r"^(?P<indent>\s*)-\s*(?P<quote>['\"]?)"
+        + re.escape(after_value)
+        + r"(?P=quote)\s*$"
+    )
+
+    for i, line in enumerate(lines):
+        if pattern.match(line.rstrip("\n")):
+            candidate_indexes.append(i)
+
+    if len(candidate_indexes) != 1:
+        fail(
+            f"{rel}: expected exactly one list item for {after_value!r}; "
+            f"found {len(candidate_indexes)}"
+        )
+
+    i = candidate_indexes[0]
+    m = pattern.match(lines[i].rstrip("\n"))
+    assert m is not None
+    indent = m.group("indent")
+    quote = m.group("quote")
+    newline = "\n" if lines[i].endswith("\n") else ""
+    rendered = f"{indent}- {quote}{new_value}{quote}{newline}"
+    lines.insert(i + 1, rendered)
+    write(rel, "".join(lines))
+
+
+def update_locus_vocab() -> None:
+    insert_yaml_list_value_after(
+        "vocab/locus.yaml",
+        "values",
+        "artifact",
+        "actor",
+    )
 
 
 def update_concept_schema() -> None:
-    rel = "schema/concept.schema.yaml"
-    data = load_yaml(rel)
-    try:
-        enum = data["properties"]["locus"]["items"]["enum"]
-    except Exception:
-        fail(f"{rel}: locus enum path not found")
-
-    if not isinstance(enum, list):
-        fail(f"{rel}: locus enum is not a list")
-
-    if "actor" not in enum:
-        try:
-            idx = enum.index("artifact") + 1
-        except ValueError:
-            fail(f"{rel}: artifact enum value not found")
-        enum.insert(idx, "actor")
-        write(rel, dump_yaml(data))
-    else:
-        print(f"UNCHANGED: {rel} already contains actor")
+    insert_yaml_list_value_after(
+        "schema/concept.schema.yaml",
+        "enum",
+        "artifact",
+        "actor",
+    )
 
 
 def update_foundation() -> None:
