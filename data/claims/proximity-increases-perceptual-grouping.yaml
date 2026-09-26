@@ -1,0 +1,19 @@
+id: claim:proximity-increases-perceptual-grouping
+kind: claim
+statement: "As visual elements become spatially closer, their strength of perceptual grouping by proximity tends to increase."
+modality: descriptive
+subject: concept:proximity
+predicate: increases
+object: concept:perceptual-grouping
+basis:
+  - empirical
+  - theoretical
+evidence_status: unassessed
+scope: "Visual perceptual grouping; the magnitude and interaction with other grouping cues are context-dependent."
+sources:
+  - source:kubovy-holcombe-wagemans-1998-proximity
+  - source:wagemans-2012-gestalt-i
+record_status: draft
+replaced_by: []
+notes: ""
+schema_version: "0.1"

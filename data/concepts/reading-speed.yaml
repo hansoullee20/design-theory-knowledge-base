@@ -1,0 +1,29 @@
+id: concept:reading-speed
+kind: concept
+label: "Reading speed"
+aliases:
+  - "reading rate"
+definition: "The rate at which a reader reads text, typically measured in words per minute under a specified reading task."
+definition_sources:
+  - source:legge-bigelow-2011-print-size
+locus:
+  - outcome
+facets:
+  - typography
+  - language
+disciplines:
+  - communication-design
+  - information-design-visualization
+knowledge_origin:
+  - perceptual-science
+  - human-factors
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:legibility-typeface
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot outcome-locus concept: a measured consequence of use, distinct from the disposition (typeface legibility) that partly explains it. Candidate for future operationalized_by (e.g. MNREAD-style reading-speed measurement)."
+schema_version: "0.1"

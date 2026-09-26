@@ -1,0 +1,9 @@
+version: "0.1"
+status: draft
+values:
+  - communication-design
+  - interface-interaction-design
+  - information-design-visualization
+  - product-design
+  - service-design
+  - spatial-design

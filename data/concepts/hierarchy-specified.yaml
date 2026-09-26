@@ -1,0 +1,26 @@
+id: concept:hierarchy-specified
+kind: concept
+label: "Specified visual hierarchy"
+aliases:
+  - "intended visual hierarchy"
+definition: "An ordering of relative importance encoded in a visual artifact through differences such as size, position, color, contrast, or other visual treatment."
+definition_sources:
+  - source:saw-gatzke-2024-visual-hierarchy
+locus:
+  - artifact
+facets:
+  - layout
+disciplines:
+  - information-design-visualization
+knowledge_origin:
+  - design-practice
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:hierarchy-perceived
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot operational sense used to distinguish the hierarchy encoded by a designer from the hierarchy perceived by a viewer."
+schema_version: "0.1"

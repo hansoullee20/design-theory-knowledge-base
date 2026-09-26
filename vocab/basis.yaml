@@ -1,0 +1,8 @@
+version: "0.1"
+values:
+  - empirical
+  - theoretical
+  - conventional
+  - standard
+  - doctrinal
+  - expert-opinion

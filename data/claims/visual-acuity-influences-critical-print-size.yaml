@@ -1,0 +1,17 @@
+id: claim:visual-acuity-influences-critical-print-size
+kind: claim
+statement: Visual acuity influences critical print size.
+modality: descriptive
+subject: concept:visual-acuity
+predicate: influences
+object: concept:critical-print-size
+basis:
+- empirical
+evidence_status: unassessed
+scope: Greater visual acuity is associated with smaller critical print size (Legge & Bigelow, 2011).
+sources:
+- source:legge-bigelow-2011-print-size
+record_status: draft
+replaced_by: []
+notes: The directional association is recorded in scope. The predicate remains influences rather than decreases because numeric direction belongs to a specific operationalization; the concept definition itself has explicit polarity.
+schema_version: '0.1'

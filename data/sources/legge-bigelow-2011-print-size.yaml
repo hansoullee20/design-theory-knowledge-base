@@ -1,0 +1,8 @@
+id: source:legge-bigelow-2011-print-size
+kind: source
+citation: "Legge, G. E., & Bigelow, C. A. (2011). Does print size matter for reading? A review of findings from vision science and typography. Journal of Vision, 11(5), 8."
+source_type: paper
+year: 2011
+identifier: "doi:10.1167/11.5.8"
+notes: "Review integrating psychophysics of reading (critical print size, fluent range) with typographic practice. Used in the pilot because it makes reader-dependence of legibility explicit."
+schema_version: "0.1"

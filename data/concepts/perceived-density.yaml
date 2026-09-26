@@ -1,0 +1,29 @@
+id: concept:perceived-density
+kind: concept
+label: "Perceived density"
+aliases:
+  - "subjective visual density"
+definition: "A viewer's subjective perception or rating of how dense the information in a visual display appears."
+definition_sources:
+  - source:schwartz-chassidim-2014-perceived-density
+locus:
+  - experience
+facets:
+  - layout
+  - information-structure
+disciplines:
+  - information-design-visualization
+  - interface-interaction-design
+knowledge_origin:
+  - perceptual-science
+  - human-factors
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:display-object-density
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot sense split from objective/display density. The 2014 source operationalizes perceived density through participant ratings of road maps."
+schema_version: "0.1"

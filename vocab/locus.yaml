@@ -1,0 +1,8 @@
+version: "0.1"
+values:
+  - artifact
+  - actor
+  - actor-relative
+  - experience
+  - outcome
+  - practice

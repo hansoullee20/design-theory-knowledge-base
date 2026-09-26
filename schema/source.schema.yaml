@@ -1,0 +1,49 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "Design Theory Source"
+type: object
+additionalProperties: false
+
+required:
+  - id
+  - kind
+  - citation
+  - source_type
+  - schema_version
+
+properties:
+  id:
+    type: string
+    pattern: "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  kind:
+    const: "source"
+
+  citation:
+    type: string
+    minLength: 1
+
+  source_type:
+    enum:
+      - "paper"
+      - "book"
+      - "textbook"
+      - "standard"
+      - "web"
+      - "report"
+      - "other"
+
+  year:
+    type:
+      - integer
+      - "null"
+
+  identifier:
+    type: string
+    default: ""
+
+  notes:
+    type: string
+    default: ""
+
+  schema_version:
+    const: "0.1"

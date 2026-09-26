@@ -1,0 +1,12 @@
+version: "0.1"
+status: draft
+values:
+  - form
+  - color
+  - typography
+  - layout
+  - image
+  - motion
+  - information-structure
+  - interaction
+  - language

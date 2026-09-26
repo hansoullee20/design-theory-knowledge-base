@@ -1,0 +1,22 @@
+id: concept:visual-acuity
+kind: concept
+label: Visual acuity
+aliases: []
+definition: The capacity to resolve fine spatial detail, with greater visual acuity meaning that finer detail can be resolved.
+definition_sources:
+- source:legge-bigelow-2011-print-size
+locus:
+- actor
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions: []
+broader: []
+part_of: []
+related: []
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: 'Polarity is conceptual rather than tied to a measurement scale: greater acuity means finer spatial detail resolved. An operationalization such as logMAR may use an inverse numeric direction.'
+schema_version: '0.1'

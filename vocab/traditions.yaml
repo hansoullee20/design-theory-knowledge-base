@@ -1,0 +1,10 @@
+version: "0.1"
+status: draft
+values:
+  - basic-design-bauhaus
+  - gestalt
+  - swiss-typography
+  - ecological-psychology
+  - cognitive-engineering-hci
+  - usability-engineering
+  - accessibility-standards

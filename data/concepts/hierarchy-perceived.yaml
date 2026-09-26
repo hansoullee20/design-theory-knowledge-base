@@ -1,0 +1,27 @@
+id: concept:hierarchy-perceived
+kind: concept
+label: "Perceived visual hierarchy"
+aliases:
+  - "perceived hierarchy"
+definition: "The ordering of relative importance that a viewer perceives among elements in a visual artifact."
+definition_sources:
+  - source:saw-gatzke-2024-visual-hierarchy
+locus:
+  - experience
+facets:
+  - layout
+disciplines:
+  - information-design-visualization
+knowledge_origin:
+  - perceptual-science
+  - design-practice
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:hierarchy-specified
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot operational sense used to distinguish experienced hierarchy from the hierarchy encoded in the artifact."
+schema_version: "0.1"

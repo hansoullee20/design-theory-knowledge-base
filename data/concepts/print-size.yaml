@@ -1,0 +1,29 @@
+id: concept:print-size
+kind: concept
+label: "Print size"
+aliases:
+  - "type size"
+  - "angular print size"
+definition: "The physical size of printed or displayed text, conventionally specified by point size or x-height; in vision research expressed as the angular size of the x-height at the viewing distance."
+definition_sources:
+  - source:legge-bigelow-2011-print-size
+locus:
+  - artifact
+facets:
+  - typography
+disciplines:
+  - communication-design
+  - interface-interaction-design
+knowledge_origin:
+  - perceptual-science
+  - design-practice
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:legibility-typeface
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot artifact-locus concept. Physical size is set by the designer; angular size additionally depends on viewing distance, which is viewing context rather than an actor capability, so the concept remains artifact-locus and distance is carried in claim scope."
+schema_version: "0.1"

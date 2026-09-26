@@ -1,0 +1,22 @@
+id: concept:critical-print-size
+kind: concept
+label: Critical print size
+aliases: []
+definition: The smallest character size at which reading can occur at maximum speed for a reader under specified conditions.
+definition_sources:
+- source:legge-bigelow-2011-print-size
+locus:
+- actor-relative
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions: []
+broader: []
+part_of: []
+related: []
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: Distinct from letter acuity and reading acuity; it is a threshold defined relative to reading performance for a reader and stimulus conditions.
+schema_version: '0.1'

@@ -1,0 +1,101 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "Design Theory Claim"
+type: object
+additionalProperties: false
+
+required:
+  - id
+  - kind
+  - statement
+  - modality
+  - subject
+  - predicate
+  - object
+  - basis
+  - evidence_status
+  - sources
+  - record_status
+  - schema_version
+
+properties:
+  id:
+    type: string
+    pattern: "^claim:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  kind:
+    const: "claim"
+
+  statement:
+    type: string
+    minLength: 1
+
+  modality:
+    enum:
+      - "descriptive"
+      - "explanatory"
+      - "prescriptive"
+
+  subject:
+    type: string
+    pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  predicate:
+    enum:
+      - "increases"
+      - "decreases"
+      - "influences"
+
+  object:
+    type: string
+    pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  basis:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      enum:
+        - "empirical"
+        - "theoretical"
+        - "conventional"
+        - "standard"
+        - "doctrinal"
+        - "expert-opinion"
+
+  evidence_status:
+    enum:
+      - "unassessed"
+      - "assessed"
+
+  scope:
+    type: string
+    default: ""
+
+  sources:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  record_status:
+    enum:
+      - "draft"
+      - "reviewed"
+      - "deprecated"
+
+  replaced_by:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^claim:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  notes:
+    type: string
+    default: ""
+
+  schema_version:
+    const: "0.1"

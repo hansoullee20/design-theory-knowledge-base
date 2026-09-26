@@ -1,0 +1,145 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "Design Theory Concept"
+type: object
+additionalProperties: false
+
+required:
+  - id
+  - kind
+  - label
+  - definition
+  - definition_sources
+  - locus
+  - record_status
+  - schema_version
+
+properties:
+  id:
+    type: string
+    pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  kind:
+    const: "concept"
+
+  label:
+    type: string
+    minLength: 1
+
+  aliases:
+    type: array
+    items:
+      type: string
+    uniqueItems: true
+    default: []
+
+  definition:
+    type: string
+    minLength: 1
+
+  definition_sources:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  locus:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      enum:
+        - "artifact"
+        - "actor"
+        - "actor-relative"
+        - "experience"
+        - "outcome"
+        - "practice"
+
+  facets:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+    default: []
+
+  disciplines:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+    default: []
+
+  knowledge_origin:
+    type: array
+    uniqueItems: true
+    items:
+      enum:
+        - "perceptual-science"
+        - "cognitive-psychology"
+        - "human-factors"
+        - "design-practice"
+        - "standards-body"
+        - "art-craft"
+    default: []
+
+  traditions:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+    default: []
+
+  broader:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  part_of:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  related:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  opposite_of:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  record_status:
+    enum:
+      - "draft"
+      - "reviewed"
+      - "deprecated"
+
+  replaced_by:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+    default: []
+
+  notes:
+    type: string
+    default: ""
+
+  schema_version:
+    const: "0.1"

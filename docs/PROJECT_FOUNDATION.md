@@ -1,7 +1,7 @@
 # Design Theory Knowledge Base — Project Foundation
 
 **Repository:** `hansoullee20/design-theory-knowledge-base`  
-**Status:** Working architecture decision record (rev. 2). Decisions may be superseded; see §17.
+**Status:** Working architecture decision record (rev. 5). Decisions may be superseded; see §17.
 **Taxonomy status:** Not yet frozen  
 **Purpose of this document:** Record the conclusions reached before detailed Design Theory collection begins.
 
@@ -138,13 +138,21 @@ Kinds are few and stable. Subtypes, roles, and statuses are fields, never kinds.
 
 ### 5.3 Classification fields (orthogonal, multi-valued, controlled vocabularies)
 
-- `locus` (**required**): where the thing exists.
-  - `artifact`: specifiable by the designer (spacing, contrast ratio, grid)
-  - `experience`: a perceptual, cognitive, or affective construct (grouping, salience, perceived hierarchy)
-  - `outcome`: a measurable consequence of use (reading speed, error rate, task completion)
-  - `practice`: an activity of designing or evaluating
+- `locus` (**required**): where a property is borne. For person-borne properties, elicitation distinguishes what the actor brings to an engagement from what the engagement elicits.
+  - `artifact`: borne by the designed artifact or environment itself
+  - `actor`: borne by the person and brought to the engagement independently of this artifact — a capability, characteristic, or learned capacity (visual acuity, hand size, expertise, familiarity with a convention)
+  - `actor-relative`: borne by the relation between artifact/environment and an actor's capabilities (ecological affordance, typeface legibility, critical print size)
+  - `experience`: borne by the person and elicited by engagement with the artifact/environment — a perceptual, cognitive, or affective state (grouping, perceived density, perceived affordance)
+  - `outcome`: borne by an episode of use, available for measurement
+  - `practice`: borne by an activity of designing, researching, or evaluating
 
-  `outcome` is strictly a locus value. It names a construct, not a measured result; measured results are `observation` records (§10). A record with more than one locus value must be reviewed for splitting into senses (e.g. specified hierarchy vs. perceived hierarchy).
+  `actor` and `experience` share the person as bearer and are separated by elicitation, not by persistence: if the property changes when the artifact changes, it is `experience`; if it is brought to the engagement, it is `actor`.
+  An `actor` concept is admitted only when it is a claim subject or object, or is named in an actor-relative concept's definition. Population descriptors with values ("readers with 20/40 acuity") are claim `scope` now and `observation` records later; they are never concepts.
+  The same term may require different senses across loci: expertise brought to an episode is `actor`; a gain in skill produced by an episode is `outcome`.
+
+  `outcome` is strictly a locus value. It names a construct, not a measured result; measured results are `observation` records (§10). A record with more than one locus value must be reviewed for splitting into senses rather than using multiple loci to encode a relation.
+
+  Classify the thing, not its function: an artifact-locus definition may state the artifact element's intended purpose, but it must not define the concept by an achieved effect on an actor; achieved effects are claims.
 - `facets`: which aspect of an artifact (e.g. form, color, typography, spatial organization, image, motion, information structure, interaction, language).
 - `disciplines`: where it is applied (e.g. communication design, interface and interaction design, information design and visualization, product design, service design, spatial design). Optional for fundamentals.
 - `knowledge_origin` (optional): the body of knowledge the concept or claim comes from. Closed vocabulary, kept small: perceptual-science, cognitive-psychology, human-factors, design-practice, standards-body, art-craft.
@@ -152,7 +160,7 @@ Kinds are few and stable. Subtypes, roles, and statuses are fields, never kinds.
 
 `knowledge_origin` and `traditions` are distinct: Gestalt is a tradition whose knowledge origin is perceptual science; Swiss typography is a tradition whose knowledge origin is design practice.
 
-Quality attributes (accessibility, usability, legibility) are **concepts**, not domains. Perception and cognition are reached through `knowledge_origin`, theories, and sources, not as domains. Design history is expressed through `traditions` and sources; design science is this project's methodology.
+Quality attributes (accessibility, usability, legibility) are **concepts**, not domains; when the property is borne by the artifact/environment relative to an actor's capabilities, its locus is `actor-relative`. Perception and cognition are reached through `knowledge_origin`, theories, and sources, not as domains. Design history is expressed through `traditions` and sources; design science is this project's methodology.
 
 ### 5.4 Mapping from rev. 1 candidate types
 
@@ -359,7 +367,7 @@ without pretending every design property reduces to a number.
 
 The hooks, all reserved and none implemented in v0.1:
 
-- A **measurable variable** is an `outcome`- or `experience`-locus concept **`operationalized_by`** a `method`. No separate variable kind is needed.
+- Any concept may be **`operationalized_by`** a `method`. No separate variable kind is needed.
 - An **`observation`** record holds a measured datum: which variable, which value, in which `case`, by which `method`, under which context. The word `outcome` is never used for a record kind.
 - Claims reference concepts as subject and object, so a claim's object can already be an outcome-locus concept. That is the join point between theory and measurement.
 - The future chain is therefore:
@@ -436,6 +444,7 @@ These models are relevant to later phases but should **not delay the fundamental
 6.  Freeze Design Taxonomy v0.1 (git tag: taxonomy-v0.1)
 7.  Populate the Design Fundamentals Registry (concepts with definition sources)
 8.  Record structural relations; record any causal or prescriptive link only as a claim
+8a. Generate the reasoning-skill doctrine from §5/§8/§9 and `vocab/` (a view; non-canonical; carries the canon commit/tag).
 9.  Generate human-readable views (tooling introduced only here)
 10. Assess evidence for existing claims; add theories
 11. Add methods, operationalized_by, patterns, cases, interventions, trade-offs, observations
@@ -496,6 +505,7 @@ The project has reached the following working conclusions:
 - The kind prefix is the only structure encoded in an ID. Never encode facet, discipline, locus, level, or hierarchy.
 - An ID names a **sense**, not a word. Polysemous terms get one ID per sense (e.g. `concept:affordance-ecological`, `concept:affordance-perceived`); the label and aliases carry the shared word.
 - IDs are immutable and never reused. Changing a label never changes the ID.
+- A claim's ID names its proposition. A material change to the proposition — including a predicate change such as `increases` → `influences` — creates a new claim; the old claim becomes `record_status: deprecated` with `replaced_by` pointing to the successor. Editing `statement` wording, `scope`, or `sources` without changing the proposition keeps the ID.
 - Removal means `record_status: deprecated` with `replaced_by`; files are not deleted.
 - One record per file, at `data/<kind-plural>/<slug>.yaml`, in a flat directory per kind. Classification lives in fields, never in folders.
 - Controlled vocabularies live in `vocab/*.yaml`; schemas in `schema/`.
@@ -524,3 +534,6 @@ Recorded so that earlier reasoning is not silently lost.
 |---|---|---|
 | 1 | 2026-09-26 | Initial foundation: Domain × Knowledge-type axes; enrichment by concept fields; freeze before pilot. |
 | 2 | 2026-09-26 | Record kinds + orthogonal fields (locus, facets, disciplines, knowledge_origin, traditions); concepts separated from claims; no structural ENABLES/AFFECTS; later layers additive; lifecycle `evidence_status` with reserved `evidence_profile`, no hand-entered strength rating; mechanism as explanatory claim; `outcome` locus only, `observation` for measured data; `operationalized_by` reserved; quantification readiness as reserved commitment; ID and file rules; pilot before freeze. |
+| 3 | 2026-09-26 | PF-002 resolved after independent affordance and legibility/readability stress tests: `locus` redefined as property bearer; additive `actor-relative` locus introduced for artifact/environment–actor capability relations; actor characteristics remain an open pilot issue. |
+| 4 | 2026-09-26 | Freeze-readiness corrections: locus change-test rider distinguishes artifact purpose from achieved actor effects; claim IDs now name propositions and material predicate changes create successor claims; generated reasoning-skill doctrine is explicitly a non-canonical, versioned view of foundation and vocabularies. |
+| 5 | 2026-09-26 | PF-003 resolved: added `actor` locus for person-borne capabilities/characteristics brought to an engagement; distinguished `actor` from `experience` by elicitation rather than persistence; added actor admission and population-descriptor rules; generalized `operationalized_by` to any concept. |

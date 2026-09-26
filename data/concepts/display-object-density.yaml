@@ -1,0 +1,29 @@
+id: concept:display-object-density
+kind: concept
+label: "Display object density"
+aliases:
+  - "objective display density"
+definition: "The number of displayed objects relative to a defined display unit or area."
+definition_sources:
+  - source:woodruff-landay-stonebraker-1998-density
+locus:
+  - artifact
+facets:
+  - layout
+  - information-structure
+disciplines:
+  - information-design-visualization
+  - interface-interaction-design
+knowledge_origin:
+  - human-factors
+  - design-practice
+traditions: []
+broader: []
+part_of: []
+related:
+  - concept:perceived-density
+opposite_of: []
+record_status: draft
+replaced_by: []
+notes: "Pilot operational sense. This is deliberately narrower than the ambiguous everyday term 'density' and should not be read as the only possible objective density metric."
+schema_version: "0.1"
