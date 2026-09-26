@@ -52,7 +52,7 @@ def add_actor_relative_to_schema(path: Path) -> None:
     # Locate the unique schema property named 'locus' regardless of indentation.
     candidates = []
     for i, line in enumerate(lines):
-        m = re.match(r"^(?P<i>\\s*)locus:\\s*$", line.rstrip("\\n"))
+        m = re.match(r"^(?P<i>\s*)locus:\s*$", line.rstrip("\n"))
         if m:
             candidates.append((i, len(m.group("i"))))
 
@@ -66,9 +66,9 @@ def add_actor_relative_to_schema(path: Path) -> None:
     locus_end = len(lines)
 
     # The locus block ends at the next nonblank key at the same or shallower indent.
-    key_re = re.compile(r"^(?P<i>\\s*)(?P<key>[A-Za-z0-9_$-]+):")
+    key_re = re.compile(r"^(?P<i>\s*)(?P<key>[A-Za-z0-9_$-]+):")
     for i in range(locus_start + 1, len(lines)):
-        raw = lines[i].rstrip("\\n")
+        raw = lines[i].rstrip("\n")
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
         m = key_re.match(raw)
@@ -78,33 +78,36 @@ def add_actor_relative_to_schema(path: Path) -> None:
 
     block = "".join(lines[locus_start:locus_end])
 
-    if re.search(r"^\\s*-\\s+actor-relative\\s*$", block, re.M):
-        print(f"UNCHANGED: {path} locus enum already contains actor-relative")
-        return
-    if re.search(r"enum:\\s*\\[[^\\]]*actor-relative[^\\]]*\\]", block):
+    if re.search(r'^\s*-\s*["\']?actor-relative["\']?\s*$', block, re.M):
         print(f"UNCHANGED: {path} locus enum already contains actor-relative")
         return
 
-    # Case 1: block-style enum item, e.g. '- artifact'.
+    # Block-style enum item. Preserve quoted/unquoted style of artifact.
     for j in range(locus_start, locus_end):
-        raw = lines[j].rstrip("\\n")
-        m = re.match(r"^(?P<i>\\s*)-\\s+artifact\\s*$", raw)
+        raw = lines[j].rstrip("\n")
+        m = re.match(r'^(?P<i>\s*)-\s+(?P<q>["\']?)artifact(?P=q)\s*$', raw)
         if m:
             indent = m.group("i")
-            newline = "\\n" if lines[j].endswith("\\n") else ""
-            lines.insert(j + 1, f"{indent}- actor-relative{newline}")
+            quote = m.group("q")
+            newline = "\n" if lines[j].endswith("\n") else ""
+            rendered = f"{quote}actor-relative{quote}" if quote else "actor-relative"
+            lines.insert(j + 1, f"{indent}- {rendered}{newline}")
             text = "".join(lines)
             write_if_changed(path, original, text)
             return
 
-    # Case 2: flow-style enum, e.g. 'enum: [artifact, experience, outcome, practice]'.
-    flow = re.search(r"enum:\\s*\\[(?P<body>[^\\]]+)\\]", block)
+    # Flow-style enum fallback.
+    flow = re.search(r"enum:\s*\[(?P<body>[^\]]+)\]", block)
     if flow:
-        values = [v.strip() for v in flow.group("body").split(",")]
-        if "artifact" in values:
-            idx = values.index("artifact") + 1
-            values.insert(idx, "actor-relative")
-            new_enum = "enum: [" + ", ".join(values) + "]"
+        raw_values = [v.strip() for v in flow.group("body").split(",")]
+        normalized = [v.strip("\"'") for v in raw_values]
+        if "artifact" in normalized:
+            idx = normalized.index("artifact") + 1
+            artifact_rendered = raw_values[idx - 1]
+            quote = artifact_rendered[0] if artifact_rendered[:1] in {"\"", "'"} else ""
+            rendered = f"{quote}actor-relative{quote}" if quote else "actor-relative"
+            raw_values.insert(idx, rendered)
+            new_enum = "enum: [" + ", ".join(raw_values) + "]"
             new_block = block[:flow.start()] + new_enum + block[flow.end():]
             text = "".join(lines[:locus_start]) + new_block + "".join(lines[locus_end:])
             write_if_changed(path, original, text)
