@@ -39,6 +39,8 @@ SHARED_ENUM_PATHS = {
     "predicate": ("claim", ("properties", "predicate", "enum")),
 }
 
+STRUCTURAL_RELATIONS = ("broader", "part_of", "related", "opposite_of")
+
 
 def repo_root() -> Path:
     try:
@@ -224,11 +226,11 @@ def fix_log(path: Path) -> int:
     return len(bad)
 
 
-def find_broader_cycles(concepts):
+def find_cycles(concepts, field):
     graph = {
         rid: [
             ref
-            for ref in (data.get("broader") or [])
+            for ref in (data.get(field) or [])
             if ref in concepts
         ]
         for rid, data in concepts.items()
@@ -261,6 +263,66 @@ def find_broader_cycles(concepts):
             seen.add(key)
             unique.append(cycle)
     return unique
+
+
+def loci(data):
+    value = data.get("locus") or []
+    return set(value) if isinstance(value, list) else set()
+
+
+def unordered_pair(a, b):
+    return tuple(sorted((a, b)))
+
+
+def validate_structural_relations(concepts, errors, warnings):
+    # All structural relations are irreflexive.
+    for rid, data in concepts.items():
+        for field in STRUCTURAL_RELATIONS:
+            if rid in (data.get(field) or []):
+                errors.append(f"{rid}: {field} is irreflexive; self-reference is invalid")
+
+    # broader and part_of are acyclic.
+    for field in ("broader", "part_of"):
+        for cycle in find_cycles(concepts, field):
+            errors.append(f"{field} cycle: " + " -> ".join(cycle))
+
+    # broader is subsumption: endpoints must have the same locus classification.
+    for rid, data in concepts.items():
+        for ref in data.get("broader", []) or []:
+            if ref not in concepts:
+                continue
+            if loci(data) != loci(concepts[ref]):
+                errors.append(
+                    f"{rid}: broader endpoint {ref} must share the same locus; "
+                    f"{sorted(loci(data))!r} != {sorted(loci(concepts[ref]))!r}"
+                )
+
+    # part_of should ordinarily stay within a locus; cross-locus is suspicious, not impossible.
+    for rid, data in concepts.items():
+        for ref in data.get("part_of", []) or []:
+            if ref not in concepts:
+                continue
+            if not (loci(data) & loci(concepts[ref])):
+                warnings.append(
+                    f"{rid}: part_of endpoint {ref} shares no locus; "
+                    "review whether this is genuine mereology rather than another relation"
+                )
+
+    # The same unordered pair cannot simultaneously assert subsumption and mereology.
+    broader_pairs = set()
+    part_pairs = set()
+    for rid, data in concepts.items():
+        for ref in data.get("broader", []) or []:
+            if ref in concepts:
+                broader_pairs.add(unordered_pair(rid, ref))
+        for ref in data.get("part_of", []) or []:
+            if ref in concepts:
+                part_pairs.add(unordered_pair(rid, ref))
+
+    for pair in sorted(broader_pairs & part_pairs):
+        errors.append(
+            f"{pair[0]} / {pair[1]}: pair cannot be both broader and part_of"
+        )
 
 
 def run_self_test(root, schemas):
@@ -311,6 +373,77 @@ def run_self_test(root, schemas):
         print("PASS: missing vocabulary is a hard failure")
     else:
         print("FAIL: missing vocabulary incorrectly accepted")
+        ok = False
+
+    # Relation invariant tests operate on in-memory concepts only.
+    base_a = copy.deepcopy(concept)
+    base_b = copy.deepcopy(concept)
+    base_a["id"] = "concept:self-test-a"
+    base_b["id"] = "concept:self-test-b"
+    base_a["locus"] = ["artifact"]
+    base_b["locus"] = ["experience"]
+    for record in (base_a, base_b):
+        for field in STRUCTURAL_RELATIONS:
+            record[field] = []
+
+    relation_errors = []
+    relation_warnings = []
+    base_a["broader"] = [base_a["id"]]
+    validate_structural_relations(
+        {base_a["id"]: base_a},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("irreflexive" in err for err in relation_errors):
+        print("PASS: self-referencing broader rejected")
+    else:
+        print("FAIL: self-referencing broader incorrectly accepted")
+        ok = False
+
+    base_a["broader"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("must share the same locus" in err for err in relation_errors):
+        print("PASS: cross-locus broader rejected")
+    else:
+        print("FAIL: cross-locus broader incorrectly accepted")
+        ok = False
+
+    base_a["broader"] = []
+    base_a["part_of"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("shares no locus" in warning for warning in relation_warnings):
+        print("PASS: cross-locus part_of warned")
+    else:
+        print("FAIL: cross-locus part_of produced no warning")
+        ok = False
+
+    base_a["locus"] = ["artifact"]
+    base_b["locus"] = ["artifact"]
+    base_a["broader"] = [base_b["id"]]
+    base_a["part_of"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("both broader and part_of" in err for err in relation_errors):
+        print("PASS: broader/part_of pair collision rejected")
+    else:
+        print("FAIL: broader/part_of pair collision incorrectly accepted")
         ok = False
 
     print("SELF-TEST RESULT:", "PASS" if ok else "FAIL")
@@ -409,14 +542,14 @@ def main():
         records[rid] = str(rel)
         by_kind[kind][rid] = data
 
-        loci = data.get("locus")
+        locus_values = data.get("locus")
         if (
             kind == "concept"
-            and isinstance(loci, list)
-            and len(loci) > 1
+            and isinstance(locus_values, list)
+            and len(locus_values) > 1
         ):
             warnings.append(
-                f"{rel}: multiple locus values {loci}; "
+                f"{rel}: multiple locus values {locus_values}; "
                 "review whether this term should be split into senses"
             )
 
@@ -429,7 +562,7 @@ def main():
                     f"{rel}: missing referenced source {source}"
                 )
 
-        for field in ("broader", "part_of", "related", "opposite_of"):
+        for field in STRUCTURAL_RELATIONS:
             for ref in data.get(field, []) or []:
                 if ref not in by_kind["concept"]:
                     errors.append(
@@ -441,6 +574,12 @@ def main():
                 errors.append(
                     f"{rel}: missing replacement concept {ref}"
                 )
+
+    validate_structural_relations(
+        by_kind["concept"],
+        errors,
+        warnings,
+    )
 
     for rid, data in by_kind["claim"].items():
         rel = records[rid]
@@ -463,9 +602,6 @@ def main():
                 errors.append(
                     f"{rel}: missing replacement claim {ref}"
                 )
-
-    for cycle in find_broader_cycles(by_kind["concept"]):
-        errors.append("broader cycle: " + " -> ".join(cycle))
 
     log = root / "pilot" / "PILOT_FAILURE_LOG.md"
     if log.exists():
