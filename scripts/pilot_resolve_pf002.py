@@ -47,31 +47,52 @@ def add_actor_relative_to_vocab(path: Path) -> None:
 
 def add_actor_relative_to_schema(path: Path) -> None:
     original = require(path)
-    if re.search(r"^\s*-\s+actor-relative\s*$", original, re.M):
-        print(f"UNCHANGED: {path} already contains actor-relative")
-        return
 
-    # Insert only in the enum/list containing the locus quartet.
-    pattern = re.compile(
-        r"(?P<indent>\s*)- artifact\n"
-        r"(?P=indent)- experience\n"
-        r"(?P=indent)- outcome\n"
-        r"(?P=indent)- practice"
-    )
-    m = pattern.search(original)
-    if not m:
-        print(f"ERROR: could not find the locus enum quartet in {path}")
+    # Restrict the search to the top-level 'locus' property block.
+    lines = original.splitlines(keepends=True)
+    locus_start = None
+    locus_end = len(lines)
+
+    for i, line in enumerate(lines):
+        if re.match(r"^  locus:\\s*$", line.rstrip("\\n")):
+            locus_start = i
+            break
+
+    if locus_start is None:
+        print(f"ERROR: could not find top-level locus property in {path}")
         sys.exit(2)
 
-    i = m.group("indent")
-    replacement = (
-        f"{i}- artifact\n"
-        f"{i}- actor-relative\n"
-        f"{i}- experience\n"
-        f"{i}- outcome\n"
-        f"{i}- practice"
-    )
-    text = original[:m.start()] + replacement + original[m.end():]
+    for i in range(locus_start + 1, len(lines)):
+        # Next schema property at the same two-space indentation.
+        if re.match(r"^  [A-Za-z0-9_-]+:\\s*$", lines[i].rstrip("\\n")):
+            locus_end = i
+            break
+
+    block = "".join(lines[locus_start:locus_end])
+
+    if re.search(r"^\\s*-\\s+actor-relative\\s*$", block, re.M):
+        print(f"UNCHANGED: {path} locus enum already contains actor-relative")
+        return
+
+    # Find the artifact enum item within the locus block and insert after it,
+    # preserving the exact indentation used by the local schema.
+    artifact_line = None
+    for j in range(locus_start, locus_end):
+        if re.match(r"^(?P<i>\\s*)-\\s+artifact\\s*$", lines[j].rstrip("\\n")):
+            artifact_line = j
+            indent = re.match(r"^(?P<i>\\s*)", lines[j]).group("i")
+            break
+
+    if artifact_line is None:
+        print(f"ERROR: could not find artifact enum item inside locus property in {path}")
+        print("---- locus block ----")
+        print(block.rstrip())
+        print("---------------------")
+        sys.exit(2)
+
+    newline = "\\n" if lines[artifact_line].endswith("\\n") else ""
+    lines.insert(artifact_line + 1, f"{indent}- actor-relative{newline}")
+    text = "".join(lines)
     write_if_changed(path, original, text)
 
 def replace_locus(path: Path, new_value: str) -> None:
