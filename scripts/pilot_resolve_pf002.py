@@ -157,52 +157,82 @@ def update_foundation(path: Path) -> None:
     original = require(path)
     text = original
 
+    # Rev marker: tolerate an already-updated file.
     text = text.replace(
         "**Status:** Working architecture decision record (rev. 2). Decisions may be superseded; see §17.",
         "**Status:** Working architecture decision record (rev. 3). Decisions may be superseded; see §17.",
+        1,
     )
 
-    old = """- `locus` (**required**): where the thing exists.
-  - `artifact`: specifiable by the designer (spacing, contrast ratio, grid)
-  - `experience`: a perceptual, cognitive, or affective construct (grouping, salience, perceived hierarchy)
-  - `outcome`: a measurable consequence of use (reading speed, error rate, task completion)
-  - `practice`: an activity of designing or evaluating
-
-  `outcome` is strictly a locus value. It names a construct, not a measured result; measured results are `observation` records (§10). A record with more than one locus value must be reviewed for splitting into senses (e.g. specified hierarchy vs. perceived hierarchy).
-"""
-    new = """- `locus` (**required**): the bearer of the property. Decide it by asking what must change for the property itself to change.
-  - `artifact`: borne by the designed artifact or environment itself (spacing, contrast ratio, grid)
-  - `actor-relative`: borne by the relation between a designed artifact/environment and an actor's capabilities; it can change when either the artifact/environment or the relevant capability changes, but not merely because the actor's perception or belief changes (ecological affordance, typeface legibility, linguistic readability)
-  - `experience`: borne by a person's perceptual, cognitive, or affective state (grouping, salience, perceived hierarchy, perceived affordance)
-  - `outcome`: borne by an episode or consequence of use and available for observation or measurement (reading speed, error rate, task completion)
-  - `practice`: borne by an activity of designing, researching, or evaluating
-
-  `outcome` is strictly a locus value. It names a construct, not a measured result; measured results are `observation` records (§10). A record with more than one locus value must be reviewed for splitting into senses rather than using multiple loci to encode a relation. Actor characteristics themselves are not assigned a locus by this amendment; that open issue is tracked separately in the pilot.
-"""
-    if old not in text:
-        print("ERROR: expected §5.3 locus block not found in docs/PROJECT_FOUNDATION.md")
+    # Replace only the locus subsection inside §5.3, without depending on exact wording.
+    sec_start = text.find("### 5.3 Classification fields")
+    sec_end = text.find("### 5.4 ", sec_start)
+    if sec_start < 0 or sec_end < 0:
+        print("ERROR: could not identify §5.3 boundaries in docs/PROJECT_FOUNDATION.md")
         sys.exit(2)
-    text = text.replace(old, new, 1)
 
-    text = text.replace(
-        "Quality attributes (accessibility, usability, legibility) are **concepts**, not domains.",
-        "Quality attributes (accessibility, usability, legibility) are **concepts**, not domains; when the property is borne by the artifact/environment relative to an actor's capabilities, its locus is `actor-relative`.",
-        1,
-    )
+    sec = text[sec_start:sec_end]
 
-    text = text.replace(
-        "A **measurable variable** is an `outcome`- or `experience`-locus concept **`operationalized_by`** a `method`.",
-        "A **measurable variable** is an `outcome`-, `experience`-, or `actor-relative`-locus concept **`operationalized_by`** a `method`.",
-        1,
-    )
+    locus_start = sec.find("- \`locus\`")
+    if locus_start < 0:
+        print("ERROR: could not find locus bullet inside §5.3")
+        sys.exit(2)
 
-    rev3 = "| 3 | 2026-09-26 | PF-002 resolved after independent affordance and legibility/readability stress tests: `locus` redefined as property bearer; additive `actor-relative` locus introduced for artifact/environment–actor capability relations; actor characteristics remain an open pilot issue. |"
+    # The next classification-field bullet marks the end of the locus block.
+    next_candidates = [
+        sec.find("- \`facets\`", locus_start + 1),
+        sec.find("- \`disciplines\`", locus_start + 1),
+        sec.find("- \`knowledge_origin\`", locus_start + 1),
+        sec.find("- \`traditions\`", locus_start + 1),
+    ]
+    next_candidates = [x for x in next_candidates if x >= 0]
+    if not next_candidates:
+        print("ERROR: could not determine end of locus block in §5.3")
+        sys.exit(2)
+    locus_end = min(next_candidates)
+
+    locus_block = """- \`locus\` (**required**): the bearer of the property. Decide it by asking what must change for the property itself to change.
+  - \`artifact\`: borne by the designed artifact or environment itself (spacing, contrast ratio, grid)
+  - \`actor-relative\`: borne by the relation between a designed artifact/environment and an actor's capabilities; it can change when either the artifact/environment or the relevant capability changes, but not merely because the actor's perception or belief changes (ecological affordance, typeface legibility, linguistic readability)
+  - \`experience\`: borne by a person's perceptual, cognitive, or affective state (grouping, salience, perceived hierarchy, perceived affordance)
+  - \`outcome\`: borne by an episode or consequence of use and available for observation or measurement (reading speed, error rate, task completion)
+  - \`practice\`: borne by an activity of designing, researching, or evaluating
+
+  \`outcome\` is strictly a locus value. It names a construct, not a measured result; measured results are \`observation\` records (§10). A record with more than one locus value must be reviewed for splitting into senses rather than using multiple loci to encode a relation. Actor characteristics themselves are not assigned a locus by this amendment; that open issue is tracked separately in the pilot.
+"""
+
+    new_sec = sec[:locus_start] + locus_block + sec[locus_end:]
+    text = text[:sec_start] + new_sec + text[sec_end:]
+
+    # Quality-attribute sentence: amend only if not already actor-relative-aware.
+    qa_old = "Quality attributes (accessibility, usability, legibility) are **concepts**, not domains."
+    qa_new = "Quality attributes (accessibility, usability, legibility) are **concepts**, not domains; when the property is borne by the artifact/environment relative to an actor's capabilities, its locus is \`actor-relative\`."
+    if qa_new not in text and qa_old in text:
+        text = text.replace(qa_old, qa_new, 1)
+
+    # Quantification hook: tolerate wording already changed.
+    q_old = "A **measurable variable** is an \`outcome\`- or \`experience\`-locus concept **\`operationalized_by\`** a \`method\`."
+    q_new = "A **measurable variable** is an \`outcome\`-, \`experience\`-, or \`actor-relative\`-locus concept **\`operationalized_by\`** a \`method\`."
+    if q_new not in text and q_old in text:
+        text = text.replace(q_old, q_new, 1)
+
+    # Decision log: append rev. 3 after rev. 2 if absent.
+    rev3 = "| 3 | 2026-09-26 | PF-002 resolved after independent affordance and legibility/readability stress tests: \`locus\` redefined as property bearer; additive \`actor-relative\` locus introduced for artifact/environment–actor capability relations; actor characteristics remain an open pilot issue. |"
     if rev3 not in text:
-        marker = "| 2 | 2026-09-26 | Record kinds + orthogonal fields (locus, facets, disciplines, knowledge_origin, traditions); concepts separated from claims; no structural ENABLES/AFFECTS; later layers additive; lifecycle `evidence_status` with reserved `evidence_profile`, no hand-entered strength rating; mechanism as explanatory claim; `outcome` locus only, `observation` for measured data; `operationalized_by` reserved; quantification readiness as reserved commitment; ID and file rules; pilot before freeze. |"
-        if marker not in text:
-            print("ERROR: rev. 2 decision-log row not found")
+        lines = text.splitlines()
+        inserted = False
+        out = []
+        for line in lines:
+            out.append(line)
+            if line.startswith("| 2 | 2026-09-26 |") and not inserted:
+                out.append(rev3)
+                inserted = True
+        if not inserted:
+            print("ERROR: could not find rev. 2 row in §17 decision log")
             sys.exit(2)
-        text = text.replace(marker, marker + "\n" + rev3, 1)
+        text = "\n".join(out)
+        if original.endswith("\n"):
+            text += "\n"
 
     write_if_changed(path, original, text)
 
