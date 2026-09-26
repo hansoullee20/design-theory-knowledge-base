@@ -39,7 +39,7 @@ SHARED_ENUM_PATHS = {
     "predicate": ("claim", ("properties", "predicate", "enum")),
 }
 
-STRUCTURAL_RELATIONS = ("broader", "part_of", "related", "opposite_of")
+STRUCTURAL_RELATIONS = ("is_a", "part_of", "related", "opposite_of")
 
 
 def repo_root() -> Path:
@@ -281,19 +281,19 @@ def validate_structural_relations(concepts, errors, warnings):
             if rid in (data.get(field) or []):
                 errors.append(f"{rid}: {field} is irreflexive; self-reference is invalid")
 
-    # broader and part_of are acyclic.
-    for field in ("broader", "part_of"):
+    # is_a and part_of are acyclic.
+    for field in ("is_a", "part_of"):
         for cycle in find_cycles(concepts, field):
             errors.append(f"{field} cycle: " + " -> ".join(cycle))
 
-    # broader is subsumption: endpoints must have the same locus classification.
+    # is_a is subsumption: endpoints must have the same locus classification.
     for rid, data in concepts.items():
-        for ref in data.get("broader", []) or []:
+        for ref in data.get("is_a", []) or []:
             if ref not in concepts:
                 continue
             if loci(data) != loci(concepts[ref]):
                 errors.append(
-                    f"{rid}: broader endpoint {ref} must share the same locus; "
+                    f"{rid}: is_a endpoint {ref} must share the same locus; "
                     f"{sorted(loci(data))!r} != {sorted(loci(concepts[ref]))!r}"
                 )
 
@@ -309,19 +309,19 @@ def validate_structural_relations(concepts, errors, warnings):
                 )
 
     # The same unordered pair cannot simultaneously assert subsumption and mereology.
-    broader_pairs = set()
+    is_a_pairs = set()
     part_pairs = set()
     for rid, data in concepts.items():
-        for ref in data.get("broader", []) or []:
+        for ref in data.get("is_a", []) or []:
             if ref in concepts:
-                broader_pairs.add(unordered_pair(rid, ref))
+                is_a_pairs.add(unordered_pair(rid, ref))
         for ref in data.get("part_of", []) or []:
             if ref in concepts:
                 part_pairs.add(unordered_pair(rid, ref))
 
-    for pair in sorted(broader_pairs & part_pairs):
+    for pair in sorted(is_a_pairs & part_pairs):
         errors.append(
-            f"{pair[0]} / {pair[1]}: pair cannot be both broader and part_of"
+            f"{pair[0]} / {pair[1]}: pair cannot be both is_a and part_of"
         )
 
 
@@ -388,19 +388,19 @@ def run_self_test(root, schemas):
 
     relation_errors = []
     relation_warnings = []
-    base_a["broader"] = [base_a["id"]]
+    base_a["is_a"] = [base_a["id"]]
     validate_structural_relations(
         {base_a["id"]: base_a},
         relation_errors,
         relation_warnings,
     )
     if any("irreflexive" in err for err in relation_errors):
-        print("PASS: self-referencing broader rejected")
+        print("PASS: self-referencing is_a rejected")
     else:
-        print("FAIL: self-referencing broader incorrectly accepted")
+        print("FAIL: self-referencing is_a incorrectly accepted")
         ok = False
 
-    base_a["broader"] = [base_b["id"]]
+    base_a["is_a"] = [base_b["id"]]
     relation_errors = []
     relation_warnings = []
     validate_structural_relations(
@@ -409,12 +409,12 @@ def run_self_test(root, schemas):
         relation_warnings,
     )
     if any("must share the same locus" in err for err in relation_errors):
-        print("PASS: cross-locus broader rejected")
+        print("PASS: cross-locus is_a rejected")
     else:
-        print("FAIL: cross-locus broader incorrectly accepted")
+        print("FAIL: cross-locus is_a incorrectly accepted")
         ok = False
 
-    base_a["broader"] = []
+    base_a["is_a"] = []
     base_a["part_of"] = [base_b["id"]]
     relation_errors = []
     relation_warnings = []
@@ -431,7 +431,7 @@ def run_self_test(root, schemas):
 
     base_a["locus"] = ["artifact"]
     base_b["locus"] = ["artifact"]
-    base_a["broader"] = [base_b["id"]]
+    base_a["is_a"] = [base_b["id"]]
     base_a["part_of"] = [base_b["id"]]
     relation_errors = []
     relation_warnings = []
@@ -440,10 +440,10 @@ def run_self_test(root, schemas):
         relation_errors,
         relation_warnings,
     )
-    if any("both broader and part_of" in err for err in relation_errors):
-        print("PASS: broader/part_of pair collision rejected")
+    if any("both is_a and part_of" in err for err in relation_errors):
+        print("PASS: is_a/part_of pair collision rejected")
     else:
-        print("FAIL: broader/part_of pair collision incorrectly accepted")
+        print("FAIL: is_a/part_of pair collision incorrectly accepted")
         ok = False
 
     print("SELF-TEST RESULT:", "PASS" if ok else "FAIL")
