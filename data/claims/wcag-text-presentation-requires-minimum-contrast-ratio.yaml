@@ -15,6 +15,11 @@ evidence_status: unassessed
 scope: WCAG 2.2 SC 1.4.3 Contrast (Minimum), Level AA. Large-scale text and images of large-scale text require at least 3:1. Incidental text and logotypes are exempt under this criterion. This claim encodes the general 4.5:1 threshold only.
 sources:
 - source:w3c-wcag-2-2
+source_locators:
+- source: source:w3c-wcag-2-2
+  selector:
+    type: SectionSelector
+    value: Success Criterion 1.4.3 Contrast (Minimum)
 record_status: draft
 replaced_by: []
 notes: WCAG-01 canonical retest after PF-006 resolution. The threshold is encoded structurally in constraint rather than only in free text.

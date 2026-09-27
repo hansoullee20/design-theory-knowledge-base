@@ -737,6 +737,129 @@ def run_self_test(root, schemas):
         print("FAIL: deprecated-reference warning not produced")
         ok = False
 
+    # PF-001 relation-level locator self-tests.
+    selectors = [
+        {"type": "PageSelector", "value": "42"},
+        {"type": "SectionSelector", "value": "SC 1.4.3"},
+        {"type": "FigureSelector", "value": "Figure 2"},
+        {"type": "TableSelector", "value": "Table 3"},
+        {
+            "type": "FragmentSelector",
+            "value": "contrast-minimum",
+            "conforms_to": "text/html",
+        },
+        {
+            "type": "TextQuoteSelector",
+            "exact": "supporting passage",
+            "prefix": "before",
+            "suffix": "after",
+        },
+    ]
+    bad = []
+    for selector in selectors:
+        item = copy.deepcopy(claim)
+        item["source_locators"] = [
+            {"source": item["sources"][0], "selector": selector}
+        ]
+        bad.extend(schema_errors(schemas["claim"], item))
+    if not bad:
+        print("PASS: all supported source selector shapes accepted")
+    else:
+        print("FAIL: valid source selector shape rejected")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item["source_locators"] = [
+        {
+            "source": item["sources"][0],
+            "selector": {"type": "UnknownSelector", "value": "x"},
+        }
+    ]
+    if schema_errors(schemas["claim"], item):
+        print("PASS: unknown source selector type rejected")
+    else:
+        print("FAIL: unknown source selector type accepted")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item["source_locators"] = [
+        {
+            "source": item["sources"][0],
+            "selector": {"type": "TextQuoteSelector", "exact": ""},
+        }
+    ]
+    if schema_errors(schemas["claim"], item):
+        print("PASS: empty text-quote exact value rejected")
+    else:
+        print("FAIL: empty text-quote exact value accepted")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item["source_locators"] = [{"source": item["sources"][0]}]
+    if schema_errors(schemas["claim"], item):
+        print("PASS: locator without selector rejected")
+    else:
+        print("FAIL: locator without selector accepted")
+        ok = False
+
+    errs = []
+    item = copy.deepcopy(claim)
+    item["source_locators"] = [
+        {
+            "source": "source:not-in-claim-sources",
+            "selector": {"type": "SectionSelector", "value": "1"},
+        }
+    ]
+    validate_relation_source_locators(
+        "self-test", item, "sources", "source_locators", errs
+    )
+    if any("must also appear in sources" in e for e in errs):
+        print("PASS: claim locator source must occur in sources")
+    else:
+        print("FAIL: claim locator/source mismatch not detected")
+        ok = False
+
+    errs = []
+    item = copy.deepcopy(concept)
+    item["definition_source_locators"] = [
+        {
+            "source": "source:not-in-definition-sources",
+            "selector": {"type": "PageSelector", "value": "9"},
+        }
+    ]
+    validate_relation_source_locators(
+        "self-test",
+        item,
+        "definition_sources",
+        "definition_source_locators",
+        errs,
+    )
+    if any("must also appear in definition_sources" in e for e in errs):
+        print("PASS: definition locator source must occur in definition_sources")
+    else:
+        print("FAIL: definition locator/source mismatch not detected")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    locator = {
+        "source": item["sources"][0],
+        "selector": {"type": "SectionSelector", "value": "1"},
+    }
+    item["source_locators"] = [locator, copy.deepcopy(locator)]
+    if schema_errors(schemas["claim"], item):
+        print("PASS: duplicate identical source locator rejected")
+    else:
+        print("FAIL: duplicate identical source locator accepted")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item.pop("source_locators", None)
+    if not schema_errors(schemas["claim"], item):
+        print("PASS: legacy claim without source_locators remains valid")
+    else:
+        print("FAIL: legacy claim without source_locators rejected")
+        ok = False
+
     print("SELF-TEST RESULT:", "PASS" if ok else "FAIL")
     print()
     return ok
@@ -815,6 +938,26 @@ def active_deprecated_reference_warning(
         )
 
     return None
+
+
+
+def validate_relation_source_locators(
+    rel,
+    data,
+    source_field,
+    locator_field,
+    errors,
+):
+    source_ids = set(data.get(source_field, []) or [])
+    for index, locator in enumerate(data.get(locator_field, []) or []):
+        if not isinstance(locator, dict):
+            continue
+        source = locator.get("source")
+        if isinstance(source, str) and source not in source_ids:
+            errors.append(
+                f"{rel}: {locator_field}[{index}].source {source} "
+                f"must also appear in {source_field}"
+            )
 
 
 def main():
@@ -928,6 +1071,14 @@ def main():
                     f"{rel}: missing referenced source {source}"
                 )
 
+        validate_relation_source_locators(
+            rel,
+            data,
+            "definition_sources",
+            "definition_source_locators",
+            errors,
+        )
+
         for field in STRUCTURAL_RELATIONS:
             for ref in data.get(field, []) or []:
                 if ref not in by_kind["concept"]:
@@ -988,6 +1139,14 @@ def main():
                 errors.append(
                     f"{rel}: missing referenced source {source}"
                 )
+
+        validate_relation_source_locators(
+            rel,
+            data,
+            "sources",
+            "source_locators",
+            errors,
+        )
 
         for ref in data.get("replaced_by", []) or []:
             if ref not in by_kind["claim"]:

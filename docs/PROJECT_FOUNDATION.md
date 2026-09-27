@@ -1,7 +1,7 @@
 # Design Theory Knowledge Base — Project Foundation
 
 **Repository:** `hansoullee20/design-theory-knowledge-base`  
-**Status:** Taxonomy v0.1 frozen architecture checkpoint (rev. 12). Further taxonomy/schema changes require a new post-freeze revision; see §17.
+**Status:** Taxonomy v0.1 remains frozen; post-freeze provenance extension (rev. 13). PF-001 adds exact relation-level source locators without changing taxonomy semantics; see §17.
 **Taxonomy status:** Not yet frozen  
 **Purpose of this document:** Record the conclusions reached before detailed Design Theory collection begins.
 
@@ -312,6 +312,30 @@ For Taxonomy v0.1:
 This does not create literal claim objects or a units ontology. Exceptions and
 applicability conditions remain in `scope` and source-backed statement text.
 
+
+### Exact source locators (post-freeze PF-001)
+
+PF-001 preserves sources and definition_sources as frozen v0.1 source-ID arrays.
+It adds optional relation-level source_locators and definition_source_locators.
+Each locator explicitly names a source that must also appear in the corresponding
+legacy source array; array position has no semantics. Locators belong to the
+relationship, never globally to the source record.
+
+Supported selector shapes are PageSelector, SectionSelector, FigureSelector,
+TableSelector, FragmentSelector, and TextQuoteSelector. Fragment and TextQuote
+semantics follow Web Annotation where applicable; page, section, figure, and
+table selectors are project-native scholarly-document extensions using the same
+source-plus-selector targeting pattern.
+
+Missing locator metadata remains valid during migration. Adding or changing a
+locator does not change claim proposition identity. Full W3C PROV entity,
+activity, and agent modeling remains deferred until derivation/history
+provenance is required.
+
+This is a backward-compatible optional extension. Existing records retain
+schema_version 0.1; the repository/Foundation revision identifies the additive
+capability. A future breaking record-shape change must advance schema_version.
+
 ### Source
 
 ```yaml
@@ -572,7 +596,7 @@ The project has reached the following working conclusions:
 - The kind prefix is the only structure encoded in an ID. Never encode facet, discipline, locus, level, or hierarchy.
 - An ID names a **sense**, not a word. Polysemous terms get one ID per sense (e.g. `concept:affordance-ecological`, `concept:affordance-perceived`); the label and aliases carry the shared word.
 - IDs are immutable and never reused. Changing a label never changes the ID.
-- A claim's ID names its proposition. A material change to the proposition — including a predicate change such as `increases` → `influences` — creates a new claim; the old claim becomes `record_status: deprecated` with `replaced_by` pointing to the successor. Editing `statement` wording, `scope`, or `sources` without changing the proposition keeps the ID.
+- A claim's ID names its proposition. A material change to the proposition — including a predicate change such as `increases` → `influences` — creates a new claim; the old claim becomes `record_status: deprecated` with `replaced_by` pointing to the successor. Editing `statement` wording, `scope`, `sources`, or relation-level source locators without changing the proposition keeps the ID.
 - Removal means `record_status: deprecated` with `replaced_by`; files are not deleted.
 - One record per file, at `data/<kind-plural>/<slug>.yaml`, in a flat directory per kind. Classification lives in fields, never in folders.
 - Controlled vocabularies live in `vocab/*.yaml`; schemas in `schema/`.
@@ -637,6 +661,7 @@ Recorded so that earlier reasoning is not silently lost.
 | 10 | 2026-09-27 | PF-007-RESOLUTION-01: added `conventional_for` for descriptive conventional-practice relations; kept predicate semantics independent from epistemic `basis` so convention status may be supported by professional convention or empirical observation without converting the relation into an effect, standard, or prescription. |
 | 11 | 2026-09-27 | DEPRECATION-01 lifecycle hardening: deprecated concept/claim records now require non-empty `replaced_by`; active records may not carry successors; self-links and replacement cycles are invalid; acyclic replacement chains remain valid; active references to deprecated concepts remain resolvable but produce review warnings; removed stale live `opposite_of` from the Concept example. |
 | 12 | 2026-09-27 | TAXONOMY-v0.1-FREEZE-AUDIT: all freeze gates passed at 54 records (28 concepts, 9 claims, 17 sources), 28 permanent self-tests, checker PASS with 0 warnings, and clean diff hygiene; required pilot cases were accounted for; PF-001 remains the sole intentionally deferred post-freeze provenance/locator item; Taxonomy v0.1 declared frozen before any PF-001 mutation. |
+| 13 | 2026-09-27 | PF-001-RESOLUTION-01: preserved frozen source-ID arrays and added optional relation-level source locators for claims and concept definitions; locator sources must also occur in the corresponding legacy array; WCAG SC 1.4.3 provides the first canonical locator instance; taxonomy semantics and record counts remain unchanged. |
 
 ## 18. Informative standards alignment
 
@@ -652,7 +677,7 @@ Established standards are used for generic knowledge plumbing where their semant
 | `is_a` | direct asserted edges are exportable as `skos:broader`; derived transitive closure is not emitted as additional `skos:broader` assertions; exportable as `rdfs:subClassOf` only when project concepts are modeled as classes |
 | `part_of` | project-defined partitive extension |
 | source metadata | Dublin Core terms are the target for a future structured citation representation; the current free-string `citation` field is project-native |
-| future source locator | Web Annotation Selector-compatible |
+| relation-level source locator | Web Annotation Selector-compatible; PF-001 implemented additively through claim and concept locator fields |
 | future provenance | consult W3C PROV patterns |
 | future evidence layer | consult ECO, SEPIO, and micropublication patterns |
 | future rationale layer | consult QOC, IBIS, and CIMO |

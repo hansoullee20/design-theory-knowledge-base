@@ -210,3 +210,19 @@
 - [x] No non-empty `replaced_by` exists at the freeze checkpoint.
 - [x] Freeze verdict: `PASS`.
 - [x] Taxonomy v0.1 is ready for a dedicated checkpoint commit/tag before PF-001 work begins.
+
+## PF-001-RESOLUTION-01
+
+- [x] Started from immutable taxonomy-v0.1 freeze checkpoint.
+- [x] Preserved sources and definition_sources source-ID arrays.
+- [x] Added optional relation-level source_locators and definition_source_locators.
+- [x] Locator sources must occur in the corresponding legacy source array.
+- [x] Added Page, Section, Figure, Table, Fragment, and TextQuote selector shapes.
+- [x] Added permanent positive and negative locator self-tests.
+- [x] Added canonical WCAG 2.2 SC 1.4.3 locator proof case.
+- [x] Existing records without locators remain valid; find_claims remains unchanged.
+- [x] Locator edits do not change claim proposition identity.
+- [x] Full W3C PROV modeling remains deferred.
+- [x] Backward-compatible extension retains schema_version 0.1.
+- [x] Taxonomy semantics remain frozen; Foundation rev. 12 to rev. 13.
+- [x] PF-001 outcome: RESOLVED.

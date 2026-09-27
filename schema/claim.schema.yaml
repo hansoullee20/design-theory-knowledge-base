@@ -3,6 +3,36 @@ title: "Design Theory Claim"
 type: object
 additionalProperties: false
 
+$defs:
+  source_selector:
+    oneOf:
+      - {type: object, additionalProperties: false, required: [type, value], properties: {type: {const: PageSelector}, value: {type: string, minLength: 1}}}
+      - {type: object, additionalProperties: false, required: [type, value], properties: {type: {const: SectionSelector}, value: {type: string, minLength: 1}}}
+      - {type: object, additionalProperties: false, required: [type, value], properties: {type: {const: FigureSelector}, value: {type: string, minLength: 1}}}
+      - {type: object, additionalProperties: false, required: [type, value], properties: {type: {const: TableSelector}, value: {type: string, minLength: 1}}}
+      - type: object
+        additionalProperties: false
+        required: [type, value]
+        properties:
+          type: {const: FragmentSelector}
+          value: {type: string, minLength: 1}
+          conforms_to: {type: string, minLength: 1}
+      - type: object
+        additionalProperties: false
+        required: [type, exact]
+        properties:
+          type: {const: TextQuoteSelector}
+          exact: {type: string, minLength: 1}
+          prefix: {type: string, minLength: 1}
+          suffix: {type: string, minLength: 1}
+  source_locator:
+    type: object
+    additionalProperties: false
+    required: [source, selector]
+    properties:
+      source: {type: string, pattern: "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"}
+      selector: {$ref: "#/$defs/source_selector"}
+
 allOf:
   - if:
       properties:
@@ -145,6 +175,12 @@ properties:
     items:
       type: string
       pattern: "^source:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  source_locators:
+    type: array
+    uniqueItems: true
+    items: {$ref: "#/$defs/source_locator"}
+    default: []
 
   record_status:
     enum:
