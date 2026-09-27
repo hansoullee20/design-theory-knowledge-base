@@ -1,0 +1,23 @@
+id: concept:figure
+kind: concept
+label: Figure
+aliases: []
+definition: The region of a figure–ground organization perceived as a bounded, shaped object in front.
+definition_sources:
+- source:wagemans-2012-gestalt-i
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions: []
+is_a: []
+part_of: []
+related:
+- concept:ground
+- concept:figure-ground-organization
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

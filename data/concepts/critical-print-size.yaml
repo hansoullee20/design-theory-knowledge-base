@@ -12,10 +12,9 @@ disciplines: []
 knowledge_origin:
 - perceptual-science
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related: []
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: Distinct from letter acuity and reading acuity; it is a threshold defined relative to reading performance for a reader and stimulus conditions.

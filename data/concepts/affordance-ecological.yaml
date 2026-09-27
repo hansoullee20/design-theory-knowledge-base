@@ -15,11 +15,10 @@ knowledge_origin:
   - perceptual-science
 traditions:
   - ecological-psychology
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:affordance-perceived
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Ecological affordance is distinct from perceived affordance; perception is not constitutive of the ecological affordance."

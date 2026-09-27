@@ -1,0 +1,21 @@
+id: concept:figure-ground-organization
+kind: concept
+label: Figure–ground organization
+aliases: []
+definition: The perceptual segregation of a visual field into a region seen as a shaped object (figure) and a region seen as extending behind it (ground).
+definition_sources:
+- source:wagemans-2012-gestalt-i
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

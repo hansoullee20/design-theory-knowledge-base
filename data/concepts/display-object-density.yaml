@@ -18,11 +18,10 @@ knowledge_origin:
   - human-factors
   - design-practice
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:perceived-density
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot operational sense. This is deliberately narrower than the ambiguous everyday term 'density' and should not be read as the only possible objective density metric."

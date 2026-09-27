@@ -1,0 +1,21 @@
+id: claim:wcag-text-presentation-requires-minimum-contrast-ratio
+kind: claim
+statement: Under WCAG 2.2 Success Criterion 1.4.3 (Level AA), the visual presentation of text and images of text requires a contrast ratio of at least 4.5:1, except where the criterion specifies a different requirement or exemption.
+modality: prescriptive
+subject: concept:visual-presentation-of-text
+predicate: requires
+object: concept:contrast-ratio
+constraint:
+  operator: gte
+  value: 4.5
+  unit: ratio
+basis:
+- standard
+evidence_status: unassessed
+scope: WCAG 2.2 SC 1.4.3 Contrast (Minimum), Level AA. Large-scale text and images of large-scale text require at least 3:1. Incidental text and logotypes are exempt under this criterion. This claim encodes the general 4.5:1 threshold only.
+sources:
+- source:w3c-wcag-2-2
+record_status: draft
+replaced_by: []
+notes: WCAG-01 canonical retest after PF-006 resolution. The threshold is encoded structurally in constraint rather than only in free text.
+schema_version: '0.1'

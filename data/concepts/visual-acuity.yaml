@@ -12,10 +12,9 @@ disciplines: []
 knowledge_origin:
 - perceptual-science
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related: []
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: 'Polarity is conceptual rather than tied to a measurement scale: greater acuity means finer spatial detail resolved. An operationalization such as logMAR may use an inverse numeric direction.'

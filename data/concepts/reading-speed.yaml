@@ -18,11 +18,10 @@ knowledge_origin:
   - perceptual-science
   - human-factors
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:legibility-typeface
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot outcome-locus concept: a measured consequence of use, distinct from the disposition (typeface legibility) that partly explains it. Candidate for future operationalized_by (e.g. MNREAD-style reading-speed measurement)."

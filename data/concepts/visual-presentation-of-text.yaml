@@ -1,0 +1,22 @@
+id: concept:visual-presentation-of-text
+kind: concept
+label: Visual presentation of text
+aliases: []
+definition: The rendered visual presentation of text or images of text in an artifact, including the foreground/background presentation for which visual contrast can be assessed.
+definition_sources:
+- source:w3c-wcag-2-2
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- standards-body
+traditions:
+- accessibility-standards
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

@@ -18,11 +18,10 @@ knowledge_origin:
   - perceptual-science
   - human-factors
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:display-object-density
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot sense split from objective/display density. The 2014 source operationalizes perceived density through participant ratings of road maps."

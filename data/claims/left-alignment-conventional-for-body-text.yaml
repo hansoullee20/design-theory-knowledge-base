@@ -1,0 +1,17 @@
+id: claim:left-alignment-conventional-for-body-text
+kind: claim
+statement: In left-to-right Latin typography, left alignment is a familiar convention for long body text.
+modality: descriptive
+subject: concept:left-alignment
+predicate: conventional_for
+object: concept:body-text
+basis:
+- conventional
+evidence_status: unassessed
+scope: Left-to-right Latin typography and long-form body text. This records typographic familiarity and practice, not a universal prescription, formal standard, or claim of empirical superiority in readability.
+sources:
+- source:lupton-2010-thinking-with-type
+record_status: draft
+replaced_by: []
+notes: LEFT-ALIGNMENT-01 canonical retest after PF-007 resolution. Convention is represented as proposition semantics, independently from the claim's epistemic basis.
+schema_version: '0.1'

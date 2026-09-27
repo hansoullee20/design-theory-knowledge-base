@@ -1,0 +1,22 @@
+id: concept:grid-column
+kind: concept
+label: Grid column
+aliases: []
+definition: A vertical structural constituent of a layout grid within which visual content can be positioned and aligned.
+definition_sources:
+- source:muller-brockmann-1981-grid-systems
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of:
+- concept:grid
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

@@ -1,0 +1,7 @@
+id: source:w3c-wcag-2-2
+kind: source
+citation: World Wide Web Consortium (W3C). Web Content Accessibility Guidelines (WCAG) 2.2. W3C Recommendation, 12 December 2024.
+source_type: standard
+year: 2024
+notes: Current W3C Recommendation dated 2024-12-12. WCAG 2.2 Success Criterion 1.4.3 Contrast (Minimum), Level AA, requires at least 4.5:1 for text and images of text, with 3:1 for large text and stated incidental/logotype exceptions. Exact locator machinery remains deferred under PF-001.
+schema_version: '0.1'

@@ -1,0 +1,7 @@
+id: source:tyler-forge-grid
+kind: source
+citation: Tyler Technologies. Forge Design System, Grid pattern. Undated live web documentation; accessed 27 September 2026.
+source_type: web
+year: 2026
+notes: Design-system guidance explicitly states that white space can lower the perceived density of content. The page is undated; year 2026 records the access year under the current v0.1 source metadata limitation. Exact locator and access-date machinery remain deferred under PF-001.
+schema_version: '0.1'

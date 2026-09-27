@@ -1,0 +1,22 @@
+id: concept:modular-grid
+kind: concept
+label: Modular grid
+aliases: []
+definition: A grid in which columns are divided horizontally to form repeated modules or fields for organizing content.
+definition_sources:
+- source:muller-brockmann-1981-grid-systems
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a:
+- concept:grid
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

@@ -1,0 +1,21 @@
+id: concept:grid
+kind: concept
+label: Grid
+aliases: []
+definition: A system of horizontal and vertical divisions that organizes a format into columns, fields, gutters, margins, or modules for positioning visual content.
+definition_sources:
+- source:muller-brockmann-1981-grid-systems
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

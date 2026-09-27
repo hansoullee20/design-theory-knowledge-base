@@ -18,12 +18,11 @@ knowledge_origin:
 traditions:
   - ecological-psychology
   - cognitive-engineering-hci
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:affordance-ecological
   - concept:signifier
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot sense separated from Gibson's ecological affordance following Norman's explicit distinction between real and perceived affordances."

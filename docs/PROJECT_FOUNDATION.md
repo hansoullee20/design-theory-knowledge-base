@@ -1,7 +1,7 @@
 # Design Theory Knowledge Base — Project Foundation
 
 **Repository:** `hansoullee20/design-theory-knowledge-base`  
-**Status:** Working architecture decision record (rev. 5). Decisions may be superseded; see §17.
+**Status:** Taxonomy v0.1 frozen architecture checkpoint (rev. 12). Further taxonomy/schema changes require a new post-freeze revision; see §17.
 **Taxonomy status:** Not yet frozen  
 **Purpose of this document:** Record the conclusions reached before detailed Design Theory collection begins.
 
@@ -102,7 +102,7 @@ RECORD KINDS     concept · claim · source          (v0.1)
 CLASSIFICATION   locus · facets · disciplines · knowledge_origin · traditions
                  (fields on records, multi-valued, controlled vocabularies)
 
-STRUCTURE        broader · part_of · related · opposite_of
+STRUCTURE        is_a · part_of · related
                  (inside concept records; definitional only)
 
 ASSERTIONS       claim records: subject –predicate→ object,
@@ -235,12 +235,11 @@ facets: []
 disciplines: []
 knowledge_origin: []
 traditions: []
-broader: []                     # is-a parents (concept IDs)
+is_a: []                        # direct is-a parents (concept IDs)
 part_of: []
 related: []                     # navigational only; asserts nothing; stored one direction
-opposite_of: []
 record_status: draft            # draft | reviewed | deprecated
-replaced_by: []                 # required when deprecated
+replaced_by: []                 # non-empty iff deprecated
 notes: ""
 schema_version: "0.1"
 ```
@@ -255,15 +254,63 @@ kind: claim
 statement: Elements placed closer together tend to be perceived as belonging to the same group.
 modality: descriptive           # descriptive | explanatory | prescriptive
 subject: concept:proximity
-predicate: increases            # increases | decreases | influences
+predicate: increases            # increases | decreases | influences | requires | conventional_for
 object: concept:perceptual-grouping
 basis: [empirical]              # empirical | theoretical | conventional | standard | doctrinal | expert-opinion
 scope: ""                       # context and limits; free text in v0.1
 sources: []
 evidence_status: unassessed     # unassessed | assessed  (lifecycle only; see §9)
 record_status: draft
+replaced_by: []
 schema_version: "0.1"
 ```
+
+### Conventional-practice claims
+
+`conventional_for` records that the subject is an established or familiar
+design practice for the object within the stated scope. It is a descriptive
+relation. It does **not** assert causal benefit, empirical superiority, formal
+standard status, or universal prescription.
+
+The predicate and epistemic basis remain orthogonal. For example, a claim that
+left alignment is conventional for body text may use `basis: [conventional]`
+when grounded in learned expectation or professional practice, while an empirical
+survey of actual practice could support the same `conventional_for` proposition
+with `basis: [empirical]`. The predicate therefore must not be schema-bound
+to the `conventional` basis.
+
+### Normative threshold claims
+
+The claim graph remains concept-to-concept: `subject` and `object` remain
+concept IDs. A codified quantitative requirement uses `predicate: requires`
+with a structured `constraint`.
+
+```yaml
+modality: prescriptive
+subject: concept:text-contrast
+predicate: requires
+object: concept:contrast-ratio
+constraint:
+  operator: gte
+  value: 4.5
+  unit: ratio
+basis: [standard]
+```
+
+For Taxonomy v0.1:
+
+- `requires` is valid only with `modality: prescriptive`;
+- `requires` must carry `constraint`;
+- `constraint` is forbidden on other predicates;
+- operators are `gte`, `lte`, `gt`, `lt`, and `eq`;
+- `value` is numeric;
+- `unit` is a non-empty string;
+- `subject` and `object` remain concept IDs;
+- operator, value, and unit are proposition-bearing. Changing any of them
+  creates a successor claim ID.
+
+This does not create literal claim objects or a units ontology. Exceptions and
+applicability conditions remain in `scope` and source-backed statement text.
 
 ### Source
 
@@ -281,29 +328,49 @@ schema_version: "0.1"
 
 ## 8. Relationships are first-class knowledge
 
-Relations fall into two classes with different storage:
+Relationships fall into two classes with different storage:
 
-1. **Structural and definitional relations** (`broader`, `part_of`, `related`, `opposite_of`) are stored in the concept record, one direction only. Inverses are derived, never stored.
-2. **Assertions** — anything that could be true or false, or that evidence could bear on — are stored as **claim records**, never as bare edges. This includes every causal, functional, or prescriptive link.
+1. **Structural and definitional relations** (`is_a`, `part_of`, `related`) are stored in concept records according to the directional and symmetric-storage rules in §8.1.
+2. **Assertions** — anything that could be true or false, or that evidence could bear on — are stored as **claim records**, never as bare structural edges. This includes causal, functional, and prescriptive links.
 
 There is **no structural `ENABLES` relation**, and no `AFFECTS`. Any link that would have used them is either part of a definition's text or a claim.
 
-The future knowledge graph is derived from both classes; it is not maintained by hand.
+The future knowledge graph is derived from both concept relations and claims; it is not maintained by hand.
 
-Reclassification of the rev. 1 examples:
+Reclassification of the earlier examples:
 
-| Rev. 1 edge | Correct representation |
+| Earlier edge | Correct representation |
 |---|---|
 | Contrast AFFECTS Visual Hierarchy | claim: contrast differences increase perceived hierarchy |
 | Visual Hierarchy AFFECTS Attention | claim, `basis: [empirical]`, `evidence_status: unassessed`; attention is `locus: experience` |
 | Proximity AFFECTS Grouping | claim: Gestalt proximity, `basis: [empirical]` |
-| Whitespace AFFECTS Grouping | claim (probably mediated by proximity) |
-| Whitespace AFFECTS Density | claim whose meaning depends on the operational definition of density (element count, occupied area, information content); `density` is expected to need splitting into senses |
-| Grid ENABLES Alignment | no edge. "A grid is a system of alignment references" belongs in the definition text of `concept:grid`; "using a grid improves alignment consistency" is a claim |
+| Whitespace AFFECTS Grouping | claim, probably mediated by proximity |
+| Whitespace AFFECTS Density | claim whose meaning depends on the operational definition of density |
+| Grid ENABLES Alignment | no structural edge; definitional content belongs in `concept:grid`, while an asserted effect of grid use belongs in a claim |
 
-`operationalized_by` (measurable concept → method) is reserved until `method` records exist (§10).
+`operationalized_by` (concept → method) is reserved until `method` records exist.
 
----
+### 8.1 Structural relation semantics
+
+Structural relations are intentionally narrow. They are ontological or navigational assertions, not substitutes for claims.
+
+- `is_a`: on concept A, lists concept B when every instance of A is an instance of B (subsumption). It is transitive, irreflexive, antisymmetric, and acyclic. Endpoints must share the same `locus`. Only direct asserted edges are stored; transitive closure is derived. A directly stored edge already implied by another asserted path is redundant and should not be stored, but is not a v0.1 validation error.
+- `part_of`: on concept A, lists concept B when A is a proper spatial, temporal, or structural constituent of instances of B. It does not mean dimension-of, attribute-of, feature-of, role-of, cause-of, membership in a collection or set, or a step that produces B. It is irreflexive and acyclic. Transitive closure is derived only through compatible constituent senses; no transitive inference is licensed across excluded relation types. Because v0.1 does not encode meronymy subtypes, such closure is conservative and is not materialized as asserted edges. Same-locus endpoints are expected; a cross-locus edge requires review.
+- `related`: a symmetric, non-transitive navigational relation that asserts no subsumption, mereology, causation, or opposition. It may be used when no stronger structural relation is justified. Redundancy with claim-derived adjacency is tolerated during the v0.1 pilot.
+
+Directional relations (`is_a`, `part_of`) are stored from subject to target and their inverses are derived. The symmetric relation `related` may be stored on either or both endpoints; the derived graph deduplicates it.
+
+Validation invariants before Taxonomy v0.1:
+
+1. All structural relations are irreflexive.
+2. `is_a` and `part_of` are acyclic.
+3. `is_a` endpoints must share the same `locus`; cross-locus `part_of` produces a review warning.
+4. The same concept pair cannot simultaneously be linked by both `is_a` and `part_of`.
+5. If a pair linked by `is_a` or `part_of` is also linked by `related`, the checker emits a review warning because the weaker navigational edge is probably redundant.
+
+`is_a` and `part_of` are ontological assertions and should be supported by the same source discipline as definitions. `related` is navigational.
+
+The checker validates graph structure, not the semantic direction of an otherwise well-formed edge. For example, `gutter part_of grid` and the semantically reversed `grid part_of gutter` are both structurally well-formed; definition and source review must determine which direction is true.
 
 ## 9. Epistemic classification
 
@@ -511,6 +578,32 @@ The project has reached the following working conclusions:
 - Controlled vocabularies live in `vocab/*.yaml`; schemas in `schema/`.
 - YAML: no anchors or aliases; every field typed by schema; `schema_version` on every record.
 
+
+### Deprecation and replacement
+
+For concept and claim records in v0.1, deprecation means **supersession while
+preserving the old ID**, not deletion.
+
+- `record_status: deprecated` requires a non-empty `replaced_by` list.
+- `draft` and `reviewed` records must have an empty or absent
+  `replaced_by` list.
+- replacement targets must exist and must be the same record kind;
+- self-replacement and replacement cycles are invalid;
+- acyclic replacement chains are valid. If A was replaced by B and B is later
+  replaced by C, A may continue to point to B; historical records need not be
+  rewritten merely to shortcut the chain;
+- deprecated records remain addressable by immutable ID;
+- an active concept or claim may still reference a deprecated concept for
+  historical traceability, but the checker emits a warning so the dependency can
+  be reviewed for migration to an appropriate successor;
+- v0.1 has no tombstone-without-successor state. If the project later needs
+  retirement with no replacement, that requires an explicit lifecycle extension
+  rather than an empty `replaced_by` on a deprecated record.
+
+A material change to a claim proposition still creates a new claim ID as stated
+above. Deprecation metadata records the succession; it does not rewrite the old
+proposition.
+
 ---
 
 ## 16. Superseded decisions (rev. 1 → rev. 2)
@@ -537,3 +630,33 @@ Recorded so that earlier reasoning is not silently lost.
 | 3 | 2026-09-26 | PF-002 resolved after independent affordance and legibility/readability stress tests: `locus` redefined as property bearer; additive `actor-relative` locus introduced for artifact/environment–actor capability relations; actor characteristics remain an open pilot issue. |
 | 4 | 2026-09-26 | Freeze-readiness corrections: locus change-test rider distinguishes artifact purpose from achieved actor effects; claim IDs now name propositions and material predicate changes create successor claims; generated reasoning-skill doctrine is explicitly a non-canonical, versioned view of foundation and vocabularies. |
 | 5 | 2026-09-26 | PF-003 resolved: added `actor` locus for person-borne capabilities/characteristics brought to an engagement; distinguished `actor` from `experience` by elicitation rather than persistence; added actor admission and population-descriptor rules; generalized `operationalized_by` to any concept. |
+| 6 | 2026-09-26 | Freeze-readiness relation and standards alignment: renamed `broader` to strict `is_a`; defined `is_a`, `part_of`, `related`, and provisional `opposite_of`; added structural-relation invariants and symmetric-storage rules; documented informative standards mappings without importing external ontologies. |
+| 7 | 2026-09-26 | FIGURE-GROUND-01 rejected `opposite_of` under its own semantics: figure and ground are complementary, reversible perceptual roles rather than negations; removed `opposite_of` from Taxonomy v0.1. |
+| 8 | 2026-09-26 | PRE-FREEZE-HARDENING-01: clarified direct asserted `is_a` storage and derived closure; constrained `part_of` transitivity to compatible constituent senses and excluded collection membership; added `related`/hierarchy overlap warnings, stronger cycle self-test coverage, clearer locus-mismatch diagnostics, and documented the directional-edge review limitation. |
+| 9 | 2026-09-27 | PF-006-RESOLUTION-01: preserved concept-to-concept claim endpoints and runtime inverse lookup; added `requires` for codified normative requirements plus predicate-bound structured `constraint` (`operator`, numeric `value`, `unit`); `requires` is prescriptive and must carry a constraint; constraints are forbidden on other v0.1 predicates. |
+| 10 | 2026-09-27 | PF-007-RESOLUTION-01: added `conventional_for` for descriptive conventional-practice relations; kept predicate semantics independent from epistemic `basis` so convention status may be supported by professional convention or empirical observation without converting the relation into an effect, standard, or prescription. |
+| 11 | 2026-09-27 | DEPRECATION-01 lifecycle hardening: deprecated concept/claim records now require non-empty `replaced_by`; active records may not carry successors; self-links and replacement cycles are invalid; acyclic replacement chains remain valid; active references to deprecated concepts remain resolvable but produce review warnings; removed stale live `opposite_of` from the Concept example. |
+| 12 | 2026-09-27 | TAXONOMY-v0.1-FREEZE-AUDIT: all freeze gates passed at 54 records (28 concepts, 9 claims, 17 sources), 28 permanent self-tests, checker PASS with 0 warnings, and clean diff hygiene; required pilot cases were accounted for; PF-001 remains the sole intentionally deferred post-freeze provenance/locator item; Taxonomy v0.1 declared frozen before any PF-001 mutation. |
+
+## 18. Informative standards alignment
+
+Established standards are used for generic knowledge plumbing where their semantics fit the project's competency requirements. Project-specific distinctions are introduced only where those standards do not express the required Design Theory reasoning. These mappings are informative until an exporter exists: canonical records do not store RDF vocabulary terms, and no external ontology is imported or maintained as a second source of truth.
+
+| Project construct | Informative alignment |
+|---|---|
+| `concept` | `skos:Concept` |
+| `label` | `skos:prefLabel` |
+| `aliases` | `skos:altLabel` |
+| `definition` | `skos:definition` |
+| `related` | `skos:related` |
+| `is_a` | direct asserted edges are exportable as `skos:broader`; derived transitive closure is not emitted as additional `skos:broader` assertions; exportable as `rdfs:subClassOf` only when project concepts are modeled as classes |
+| `part_of` | project-defined partitive extension |
+| source metadata | Dublin Core terms are the target for a future structured citation representation; the current free-string `citation` field is project-native |
+| future source locator | Web Annotation Selector-compatible |
+| future provenance | consult W3C PROV patterns |
+| future evidence layer | consult ECO, SEPIO, and micropublication patterns |
+| future rationale layer | consult QOC, IBIS, and CIMO |
+| artifact-reasoning comparison | consult FBS |
+| `locus`, `basis`, reasoning chain | project-specific application layer; no required external mapping |
+
+`aliases` is reserved for genuine alternative lexical labels of one concept. User-language observations that can indicate multiple concepts remain a runtime retrieval problem over aliases, definitions, and the claim graph; they are not automatically promoted to aliases.

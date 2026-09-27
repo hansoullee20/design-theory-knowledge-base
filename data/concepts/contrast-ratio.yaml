@@ -1,0 +1,22 @@
+id: concept:contrast-ratio
+kind: concept
+label: Contrast ratio
+aliases: []
+definition: A dimensionless ratio derived from the relative luminance of the lighter and darker colors in a visual presentation, used to quantify visual contrast.
+definition_sources:
+- source:w3c-wcag-2-2
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- standards-body
+traditions:
+- accessibility-standards
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

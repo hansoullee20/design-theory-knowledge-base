@@ -15,11 +15,10 @@ disciplines:
 knowledge_origin:
   - design-practice
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:hierarchy-perceived
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot operational sense used to distinguish the hierarchy encoded by a designer from the hierarchy perceived by a viewer."

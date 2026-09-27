@@ -15,10 +15,9 @@ knowledge_origin:
   - perceptual-science
 traditions:
   - gestalt
-broader: []
+is_a: []
 part_of: []
 related: []
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: ""

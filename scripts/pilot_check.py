@@ -39,6 +39,8 @@ SHARED_ENUM_PATHS = {
     "predicate": ("claim", ("properties", "predicate", "enum")),
 }
 
+STRUCTURAL_RELATIONS = ("is_a", "part_of", "related")
+
 
 def repo_root() -> Path:
     try:
@@ -224,11 +226,11 @@ def fix_log(path: Path) -> int:
     return len(bad)
 
 
-def find_broader_cycles(concepts):
+def find_cycles(concepts, field):
     graph = {
         rid: [
             ref
-            for ref in (data.get("broader") or [])
+            for ref in (data.get(field) or [])
             if ref in concepts
         ]
         for rid, data in concepts.items()
@@ -263,16 +265,100 @@ def find_broader_cycles(concepts):
     return unique
 
 
+def loci(data):
+    value = data.get("locus") or []
+    return set(value) if isinstance(value, list) else set()
+
+
+def unordered_pair(a, b):
+    return tuple(sorted((a, b)))
+
+
+def validate_structural_relations(concepts, errors, warnings):
+    # All structural relations are irreflexive.
+    for rid, data in concepts.items():
+        for field in STRUCTURAL_RELATIONS:
+            if rid in (data.get(field) or []):
+                errors.append(f"{rid}: {field} is irreflexive; self-reference is invalid")
+
+    # is_a and part_of are acyclic.
+    for field in ("is_a", "part_of"):
+        for cycle in find_cycles(concepts, field):
+            errors.append(f"{field} cycle: " + " -> ".join(cycle))
+
+    # is_a is subsumption: endpoints must have the same locus classification.
+    for rid, data in concepts.items():
+        for ref in data.get("is_a", []) or []:
+            if ref not in concepts:
+                continue
+            if loci(data) != loci(concepts[ref]):
+                errors.append(
+                    "is_a locus mismatch: "
+                    f"{rid} locus={sorted(loci(data))!r}; "
+                    f"{ref} locus={sorted(loci(concepts[ref]))!r}"
+                )
+
+    # part_of should ordinarily stay within a locus; cross-locus is suspicious, not impossible.
+    for rid, data in concepts.items():
+        for ref in data.get("part_of", []) or []:
+            if ref not in concepts:
+                continue
+            if not (loci(data) & loci(concepts[ref])):
+                warnings.append(
+                    f"{rid}: part_of endpoint {ref} shares no locus; "
+                    "review whether this is genuine mereology rather than another relation"
+                )
+
+    # The same unordered pair cannot simultaneously assert subsumption and mereology.
+    is_a_pairs = set()
+    part_pairs = set()
+    for rid, data in concepts.items():
+        for ref in data.get("is_a", []) or []:
+            if ref in concepts:
+                is_a_pairs.add(unordered_pair(rid, ref))
+        for ref in data.get("part_of", []) or []:
+            if ref in concepts:
+                part_pairs.add(unordered_pair(rid, ref))
+
+    for pair in sorted(is_a_pairs & part_pairs):
+        errors.append(
+            f"{pair[0]} / {pair[1]}: pair cannot be both is_a and part_of"
+        )
+
+    # related is weaker than is_a/part_of; overlapping pairs are probably redundant.
+    related_pairs = set()
+    for rid, data in concepts.items():
+        for ref in data.get("related", []) or []:
+            if ref in concepts:
+                related_pairs.add(unordered_pair(rid, ref))
+
+    for pair in sorted(related_pairs & is_a_pairs):
+        warnings.append(
+            f"{pair[0]} / {pair[1]}: pair is both related and is_a; "
+            "review redundant related edge"
+        )
+
+    for pair in sorted(related_pairs & part_pairs):
+        warnings.append(
+            f"{pair[0]} / {pair[1]}: pair is both related and part_of; "
+            "review redundant related edge"
+        )
+
+
 def run_self_test(root, schemas):
     print("===== SELF TEST =====")
     concepts = sorted((root / "data" / "concepts").glob("*.yaml"))
+    claims = sorted((root / "data" / "claims").glob("*.yaml"))
     sources = sorted((root / "data" / "sources").glob("*.yaml"))
 
-    if not concepts or not sources:
-        print("SELF-TEST FAIL: requires at least one concept and source record")
+    if not concepts or not claims or not sources:
+        print(
+            "SELF-TEST FAIL: requires at least one concept, claim, and source record"
+        )
         return False
 
     concept = yaml.safe_load(concepts[0].read_text(encoding="utf-8"))
+    claim = yaml.safe_load(claims[0].read_text(encoding="utf-8"))
     source = yaml.safe_load(sources[0].read_text(encoding="utf-8"))
 
     cases = []
@@ -313,9 +399,422 @@ def run_self_test(root, schemas):
         print("FAIL: missing vocabulary incorrectly accepted")
         ok = False
 
+    # Relation invariant tests operate on in-memory concepts only.
+    base_a = copy.deepcopy(concept)
+    base_b = copy.deepcopy(concept)
+    base_a["id"] = "concept:self-test-a"
+    base_b["id"] = "concept:self-test-b"
+    base_a["locus"] = ["artifact"]
+    base_b["locus"] = ["experience"]
+    for record in (base_a, base_b):
+        for field in STRUCTURAL_RELATIONS:
+            record[field] = []
+
+    relation_errors = []
+    relation_warnings = []
+    base_a["is_a"] = [base_a["id"]]
+    validate_structural_relations(
+        {base_a["id"]: base_a},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("irreflexive" in err for err in relation_errors):
+        print("PASS: self-referencing is_a rejected")
+    else:
+        print("FAIL: self-referencing is_a incorrectly accepted")
+        ok = False
+
+    base_a["is_a"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("is_a locus mismatch" in err for err in relation_errors):
+        print("PASS: cross-locus is_a rejected")
+    else:
+        print("FAIL: cross-locus is_a incorrectly accepted")
+        ok = False
+
+    base_a["is_a"] = []
+    base_a["part_of"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("shares no locus" in warning for warning in relation_warnings):
+        print("PASS: cross-locus part_of warned")
+    else:
+        print("FAIL: cross-locus part_of produced no warning")
+        ok = False
+
+    base_a["locus"] = ["artifact"]
+    base_b["locus"] = ["artifact"]
+    base_a["is_a"] = [base_b["id"]]
+    base_a["part_of"] = [base_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {base_a["id"]: base_a, base_b["id"]: base_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("both is_a and part_of" in err for err in relation_errors):
+        print("PASS: is_a/part_of pair collision rejected")
+    else:
+        print("FAIL: is_a/part_of pair collision incorrectly accepted")
+        ok = False
+
+    # Two-node cycle proves graph traversal, not merely self-loop rejection.
+    cycle_a = copy.deepcopy(base_a)
+    cycle_b = copy.deepcopy(base_b)
+    cycle_a["locus"] = ["artifact"]
+    cycle_b["locus"] = ["artifact"]
+    for record in (cycle_a, cycle_b):
+        for field in STRUCTURAL_RELATIONS:
+            record[field] = []
+    cycle_a["is_a"] = [cycle_b["id"]]
+    cycle_b["is_a"] = [cycle_a["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {cycle_a["id"]: cycle_a, cycle_b["id"]: cycle_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("is_a cycle:" in err for err in relation_errors):
+        print("PASS: two-node is_a cycle rejected")
+    else:
+        print("FAIL: two-node is_a cycle incorrectly accepted")
+        ok = False
+
+    # Stronger hierarchy + related on the same pair should warn.
+    rel_a = copy.deepcopy(base_a)
+    rel_b = copy.deepcopy(base_b)
+    rel_a["locus"] = ["artifact"]
+    rel_b["locus"] = ["artifact"]
+    for record in (rel_a, rel_b):
+        for field in STRUCTURAL_RELATIONS:
+            record[field] = []
+    rel_a["is_a"] = [rel_b["id"]]
+    rel_a["related"] = [rel_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {rel_a["id"]: rel_a, rel_b["id"]: rel_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("both related and is_a" in warning for warning in relation_warnings):
+        print("PASS: related/is_a overlap warned")
+    else:
+        print("FAIL: related/is_a overlap produced no warning")
+        ok = False
+
+    rel_a["is_a"] = []
+    rel_a["part_of"] = [rel_b["id"]]
+    rel_a["related"] = [rel_b["id"]]
+    relation_errors = []
+    relation_warnings = []
+    validate_structural_relations(
+        {rel_a["id"]: rel_a, rel_b["id"]: rel_b},
+        relation_errors,
+        relation_warnings,
+    )
+    if any("both related and part_of" in warning for warning in relation_warnings):
+        print("PASS: related/part_of overlap warned")
+    else:
+        print("FAIL: related/part_of overlap produced no warning")
+        ok = False
+
+    # PF-006 / rev.9 normative-threshold schema tests.
+    req = copy.deepcopy(claim)
+    req["id"] = "claim:self-test-requires-constraint"
+    req["predicate"] = "requires"
+    req["modality"] = "prescriptive"
+    req["constraint"] = {
+        "operator": "gte",
+        "value": 4.5,
+        "unit": "ratio",
+    }
+
+    if not schema_errors(schemas["claim"], req):
+        print("PASS: requires claim with structured constraint accepted")
+    else:
+        print("FAIL: valid requires claim rejected")
+        ok = False
+
+    item = copy.deepcopy(req)
+    item.pop("constraint", None)
+    if schema_errors(schemas["claim"], item):
+        print("PASS: requires claim without constraint rejected")
+    else:
+        print("FAIL: requires claim without constraint incorrectly accepted")
+        ok = False
+
+    item = copy.deepcopy(req)
+    item["predicate"] = "influences"
+    if schema_errors(schemas["claim"], item):
+        print("PASS: constraint on non-requires claim rejected")
+    else:
+        print("FAIL: constraint on non-requires claim incorrectly accepted")
+        ok = False
+
+    item = copy.deepcopy(req)
+    item["modality"] = "descriptive"
+    if schema_errors(schemas["claim"], item):
+        print("PASS: non-prescriptive requires claim rejected")
+    else:
+        print("FAIL: non-prescriptive requires claim incorrectly accepted")
+        ok = False
+
+    item = copy.deepcopy(req)
+    item["constraint"]["operator"] = "approximately"
+    if schema_errors(schemas["claim"], item):
+        print("PASS: invalid constraint operator rejected")
+    else:
+        print("FAIL: invalid constraint operator incorrectly accepted")
+        ok = False
+
+    # PF-007 / rev.10 conventional-practice predicate tests.
+    conv = copy.deepcopy(claim)
+    conv["id"] = "claim:self-test-conventional-for"
+    conv["predicate"] = "conventional_for"
+    conv["modality"] = "descriptive"
+    conv["basis"] = ["conventional"]
+    conv.pop("constraint", None)
+
+    if not schema_errors(schemas["claim"], conv):
+        print("PASS: descriptive conventional_for claim accepted")
+    else:
+        print("FAIL: valid conventional_for claim rejected")
+        ok = False
+
+    item = copy.deepcopy(conv)
+    item["modality"] = "prescriptive"
+    if schema_errors(schemas["claim"], item):
+        print("PASS: non-descriptive conventional_for claim rejected")
+    else:
+        print("FAIL: prescriptive conventional_for claim incorrectly accepted")
+        ok = False
+
+    item = copy.deepcopy(conv)
+    item["basis"] = ["empirical"]
+    if not schema_errors(schemas["claim"], item):
+        print("PASS: conventional_for remains independent of evidence basis")
+    else:
+        print("FAIL: conventional_for incorrectly bound to conventional basis")
+        ok = False
+
+    # DEPRECATION-01 / rev.11 lifecycle tests.
+    item = copy.deepcopy(concept)
+    item["id"] = "concept:self-test-deprecated-no-successor"
+    item["record_status"] = "deprecated"
+    item["replaced_by"] = []
+    if schema_errors(schemas["concept"], item):
+        print("PASS: deprecated concept without replacement rejected")
+    else:
+        print("FAIL: deprecated concept without replacement accepted")
+        ok = False
+
+    item = copy.deepcopy(concept)
+    item["id"] = "concept:self-test-active-with-successor"
+    item["record_status"] = "draft"
+    item["replaced_by"] = ["concept:self-test-successor"]
+    if schema_errors(schemas["concept"], item):
+        print("PASS: active concept with replaced_by rejected")
+    else:
+        print("FAIL: active concept with replaced_by accepted")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item["id"] = "claim:self-test-deprecated-with-successor"
+    item["record_status"] = "deprecated"
+    item["replaced_by"] = ["claim:self-test-successor"]
+    if not schema_errors(schemas["claim"], item):
+        print("PASS: deprecated claim with replacement accepted")
+    else:
+        print("FAIL: valid deprecated claim rejected")
+        ok = False
+
+    item = copy.deepcopy(claim)
+    item["id"] = "claim:self-test-active-with-successor"
+    item["record_status"] = "reviewed"
+    item["replaced_by"] = ["claim:self-test-successor"]
+    if schema_errors(schemas["claim"], item):
+        print("PASS: active claim with replaced_by rejected")
+    else:
+        print("FAIL: active claim with replaced_by accepted")
+        ok = False
+
+    life_errors = []
+    validate_lifecycle_replacements(
+        "concept",
+        {
+            "concept:a": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:a"],
+            },
+        },
+        life_errors,
+    )
+    if any("must not reference itself" in e for e in life_errors):
+        print("PASS: self replacement rejected")
+    else:
+        print("FAIL: self replacement not detected")
+        ok = False
+
+    life_errors = []
+    validate_lifecycle_replacements(
+        "concept",
+        {
+            "concept:a": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:b"],
+            },
+            "concept:b": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:a"],
+            },
+        },
+        life_errors,
+    )
+    if any("replacement cycle" in e for e in life_errors):
+        print("PASS: replacement cycle rejected")
+    else:
+        print("FAIL: replacement cycle not detected")
+        ok = False
+
+    life_errors = []
+    validate_lifecycle_replacements(
+        "concept",
+        {
+            "concept:a": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:b"],
+            },
+            "concept:b": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:c"],
+            },
+            "concept:c": {
+                "record_status": "reviewed",
+                "replaced_by": [],
+            },
+        },
+        life_errors,
+    )
+    if not life_errors:
+        print("PASS: acyclic replacement chain accepted")
+    else:
+        print("FAIL: valid replacement chain rejected")
+        ok = False
+
+    warning = active_deprecated_reference_warning(
+        "data/claims/self-test.yaml",
+        {"record_status": "draft"},
+        "subject",
+        "concept:old",
+        {
+            "concept:old": {
+                "record_status": "deprecated",
+                "replaced_by": ["concept:new"],
+            },
+            "concept:new": {
+                "record_status": "reviewed",
+                "replaced_by": [],
+            },
+        },
+    )
+    if warning and "historical reference remains valid" in warning:
+        print("PASS: active reference to deprecated concept warned")
+    else:
+        print("FAIL: deprecated-reference warning not produced")
+        ok = False
+
     print("SELF-TEST RESULT:", "PASS" if ok else "FAIL")
     print()
     return ok
+
+
+
+def validate_lifecycle_replacements(kind_name, items, errors):
+    """Validate semantic invariants that JSON Schema cannot express."""
+    graph = {}
+
+    for rid, data in items.items():
+        replacements = data.get("replaced_by", []) or []
+
+        if rid in replacements:
+            errors.append(
+                f"{rid}: replaced_by must not reference itself"
+            )
+
+        graph[rid] = [
+            ref for ref in replacements
+            if ref in items
+        ]
+
+    state = {}
+    stack = []
+    stack_pos = {}
+    reported = set()
+
+    def visit(node):
+        state[node] = 1
+        stack_pos[node] = len(stack)
+        stack.append(node)
+
+        for nxt in graph.get(node, []):
+            nxt_state = state.get(nxt, 0)
+
+            if nxt_state == 0:
+                visit(nxt)
+            elif nxt_state == 1:
+                start = stack_pos[nxt]
+                cycle = stack[start:] + [nxt]
+                key = tuple(sorted(set(cycle[:-1])))
+                if key not in reported:
+                    reported.add(key)
+                    errors.append(
+                        f"{kind_name} replacement cycle: "
+                        + " -> ".join(cycle)
+                    )
+
+        stack.pop()
+        stack_pos.pop(node, None)
+        state[node] = 2
+
+    for rid in graph:
+        if state.get(rid, 0) == 0:
+            visit(rid)
+
+
+def active_deprecated_reference_warning(
+    owner_rel,
+    owner_data,
+    field,
+    ref,
+    concepts,
+):
+    """Return a warning for an active record that points at a deprecated concept."""
+    if owner_data.get("record_status") == "deprecated":
+        return None
+
+    target = concepts.get(ref)
+    if target and target.get("record_status") == "deprecated":
+        return (
+            f"{owner_rel}: active record references deprecated concept "
+            f"{ref} in {field}; historical reference remains valid, "
+            "but review for successor migration"
+        )
+
+    return None
 
 
 def main():
@@ -409,14 +908,14 @@ def main():
         records[rid] = str(rel)
         by_kind[kind][rid] = data
 
-        loci = data.get("locus")
+        locus_values = data.get("locus")
         if (
             kind == "concept"
-            and isinstance(loci, list)
-            and len(loci) > 1
+            and isinstance(locus_values, list)
+            and len(locus_values) > 1
         ):
             warnings.append(
-                f"{rel}: multiple locus values {loci}; "
+                f"{rel}: multiple locus values {locus_values}; "
                 "review whether this term should be split into senses"
             )
 
@@ -429,18 +928,40 @@ def main():
                     f"{rel}: missing referenced source {source}"
                 )
 
-        for field in ("broader", "part_of", "related", "opposite_of"):
+        for field in STRUCTURAL_RELATIONS:
             for ref in data.get(field, []) or []:
                 if ref not in by_kind["concept"]:
                     errors.append(
                         f"{rel}: missing referenced concept {ref} in {field}"
                     )
+                else:
+                    warning = active_deprecated_reference_warning(
+                        rel,
+                        data,
+                        field,
+                        ref,
+                        by_kind["concept"],
+                    )
+                    if warning:
+                        warnings.append(warning)
 
         for ref in data.get("replaced_by", []) or []:
             if ref not in by_kind["concept"]:
                 errors.append(
                     f"{rel}: missing replacement concept {ref}"
                 )
+
+    validate_lifecycle_replacements(
+        "concept",
+        by_kind["concept"],
+        errors,
+    )
+
+    validate_structural_relations(
+        by_kind["concept"],
+        errors,
+        warnings,
+    )
 
     for rid, data in by_kind["claim"].items():
         rel = records[rid]
@@ -451,6 +972,16 @@ def main():
                 errors.append(
                     f"{rel}: missing referenced concept {ref} in {field}"
                 )
+            elif isinstance(ref, str):
+                warning = active_deprecated_reference_warning(
+                    rel,
+                    data,
+                    field,
+                    ref,
+                    by_kind["concept"],
+                )
+                if warning:
+                    warnings.append(warning)
 
         for source in data.get("sources", []) or []:
             if source not in by_kind["source"]:
@@ -464,8 +995,11 @@ def main():
                     f"{rel}: missing replacement claim {ref}"
                 )
 
-    for cycle in find_broader_cycles(by_kind["concept"]):
-        errors.append("broader cycle: " + " -> ".join(cycle))
+    validate_lifecycle_replacements(
+        "claim",
+        by_kind["claim"],
+        errors,
+    )
 
     log = root / "pilot" / "PILOT_FAILURE_LOG.md"
     if log.exists():

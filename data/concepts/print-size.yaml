@@ -18,11 +18,10 @@ knowledge_origin:
   - perceptual-science
   - design-practice
 traditions: []
-broader: []
+is_a: []
 part_of: []
 related:
   - concept:legibility-typeface
-opposite_of: []
 record_status: draft
 replaced_by: []
 notes: "Pilot artifact-locus concept. Physical size is set by the designer; angular size additionally depends on viewing distance, which is viewing context rather than an actor capability, so the concept remains artifact-locus and distance is carried in claim scope."

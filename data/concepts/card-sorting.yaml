@@ -1,0 +1,21 @@
+id: concept:card-sorting
+kind: concept
+label: Card sorting
+aliases: []
+definition: A research activity in which participants organize labeled items into groups according to criteria that make sense to them, typically to investigate users’ mental organization of information.
+definition_sources:
+- source:nng-2024-card-sorting
+locus:
+- practice
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

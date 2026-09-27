@@ -1,0 +1,18 @@
+id: claim:whitespace-decreases-perceived-density
+kind: claim
+statement: Increasing whitespace can decrease the perceived density of content in a visual layout.
+modality: descriptive
+subject: concept:whitespace
+predicate: decreases
+object: concept:perceived-density
+basis:
+- expert-opinion
+evidence_status: unassessed
+scope: Design-practice guidance for visual/interface layouts. The direct source support is professional design-system guidance that whitespace can lower perceived content density; this claim is not classified as an empirical law, does not assert a universal monotonic effect, and carries no effect-size claim. Context, magnitude, and boundary conditions remain unassessed.
+sources:
+- source:soegaard-2020-white-space
+- source:tyler-forge-grid
+record_status: draft
+replaced_by: []
+notes: WHITESPACE-DENSITY-01 tests the existing decreases predicate against the perceived-density sense. It deliberately does not target display-object-density, whose definition is an objective count per unit/area and is not automatically the inverse of whitespace.
+schema_version: '0.1'

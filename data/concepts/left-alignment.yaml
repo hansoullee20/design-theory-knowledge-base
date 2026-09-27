@@ -1,0 +1,21 @@
+id: concept:left-alignment
+kind: concept
+label: Left alignment
+aliases: []
+definition: A text-alignment treatment in which successive lines share a common left edge while the right edge remains uneven or ragged.
+definition_sources:
+- source:lupton-2010-thinking-with-type
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: ''
+schema_version: '0.1'

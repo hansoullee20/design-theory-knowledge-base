@@ -3,6 +3,50 @@ title: "Design Theory Claim"
 type: object
 additionalProperties: false
 
+allOf:
+  - if:
+      properties:
+        predicate:
+          const: "requires"
+      required:
+        - predicate
+    then:
+      required:
+        - constraint
+      properties:
+        modality:
+          const: "prescriptive"
+    else:
+      not:
+        required:
+          - constraint
+  - if:
+      properties:
+        predicate:
+          const: "conventional_for"
+      required:
+        - predicate
+    then:
+      properties:
+        modality:
+          const: "descriptive"
+  - if:
+      properties:
+        record_status:
+          const: "deprecated"
+      required:
+        - record_status
+    then:
+      required:
+        - replaced_by
+      properties:
+        replaced_by:
+          minItems: 1
+    else:
+      properties:
+        replaced_by:
+          maxItems: 0
+
 required:
   - id
   - kind
@@ -44,10 +88,33 @@ properties:
       - "increases"
       - "decreases"
       - "influences"
+      - "requires"
+      - "conventional_for"
 
   object:
     type: string
     pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
+
+  constraint:
+    type: object
+    additionalProperties: false
+    required:
+      - operator
+      - value
+      - unit
+    properties:
+      operator:
+        enum:
+          - "gte"
+          - "lte"
+          - "gt"
+          - "lt"
+          - "eq"
+      value:
+        type: number
+      unit:
+        type: string
+        minLength: 1
 
   basis:
     type: array

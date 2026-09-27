@@ -3,6 +3,24 @@ title: "Design Theory Concept"
 type: object
 additionalProperties: false
 
+allOf:
+  - if:
+      properties:
+        record_status:
+          const: "deprecated"
+      required:
+        - record_status
+    then:
+      required:
+        - replaced_by
+      properties:
+        replaced_by:
+          minItems: 1
+    else:
+      properties:
+        replaced_by:
+          maxItems: 0
+
 required:
   - id
   - kind
@@ -91,7 +109,7 @@ properties:
       type: string
     default: []
 
-  broader:
+  is_a:
     type: array
     uniqueItems: true
     items:
@@ -108,14 +126,6 @@ properties:
     default: []
 
   related:
-    type: array
-    uniqueItems: true
-    items:
-      type: string
-      pattern: "^concept:[a-z0-9]+(?:-[a-z0-9]+)*$"
-    default: []
-
-  opposite_of:
     type: array
     uniqueItems: true
     items:

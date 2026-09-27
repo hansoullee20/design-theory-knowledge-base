@@ -1,9 +1,9 @@
 # Runtime Target Architecture — Consumer Contract
 
-Foundation baseline: `docs/PROJECT_FOUNDATION.md` — foundation rev. 5
+Foundation baseline: `docs/PROJECT_FOUNDATION.md` — foundation rev. 8
 
 
-**Status:** Working contract (rev. 1). Companion to `docs/PROJECT_FOUNDATION.md` rev. 2.  
+**Status:** Working contract (rev. 1). Companion to `docs/PROJECT_FOUNDATION.md` rev. 6.
 **Purpose:** State what the canonical knowledge base must be able to serve at runtime, so the ontology is not designed in isolation from its use. This document decides interfaces and boundaries, not packaging, hosting, or vendor.
 
 ---
@@ -50,12 +50,14 @@ search_concepts(query)                       labels + aliases → concept IDs
 get_record(id)                               any kind, by immutable ID
 find_claims(subject?, predicate?, object?, modality?, basis?)
 trace_sources(claim_id | concept_id)         provenance chain
-neighbors(concept_id)                        broader / part_of / related / opposite_of,
+neighbors(concept_id)                        is_a / part_of / related,
                                              with derived inverses
 validate_record(record)                        schema + vocabulary + referential checks
 ```
 
 What makes this contract possible is §15 of the foundation: IDs name senses, never move, never encode classification. The contract assumes nothing else about storage.
+
+Normative `constraint` data is returned with the claim record payload. It adds no v0.1 retrieval parameter: `find_claims(subject?, predicate?, object?, modality?, basis?)` remains unchanged, and `subject` / `object` remain concept IDs.
 
 Not in the retrieval layer: `diagnose_design`, `suggest_validation`, or any other step of the reasoning chain. Those are reasoning and live in the skill, where they are versioned and testable against the foundation.
 

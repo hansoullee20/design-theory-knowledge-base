@@ -1,0 +1,26 @@
+id: concept:whitespace
+kind: concept
+label: Whitespace
+aliases:
+- negative space
+- white space
+definition: The unmarked area between and within visual design elements; despite the name, it need not be white.
+definition_sources:
+- source:soegaard-2020-white-space
+locus:
+- artifact
+facets:
+- layout
+disciplines:
+- interface-interaction-design
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related:
+- concept:perceived-density
+record_status: draft
+replaced_by: []
+notes: Whitespace is represented as an artifact-borne spatial property. Micro/macro subtypes are not introduced in v0.1.
+schema_version: '0.1'
