@@ -242,3 +242,20 @@
 - [x] Canonical checker and permanent self-tests pass with 0 warnings.
 - [x] Corpus after batch: 60 records — 31 concepts, 9 claims, 20 sources.
 - [x] Outcome: PASS.
+
+## REGISTRY-BATCH-01B — PERCEIVED COLOR FUNDAMENTALS
+
+- [x] Population branch starts from integrated REGISTRY-BATCH-01A checkpoint 8f43a91.
+- [x] Adjudicated hue, saturation, and value before minting; no bare lexical IDs were used.
+- [x] Minted concept:hue-perceived with locus experience and CIE S 017:2020 e-ILV term 17-22-067 locator.
+- [x] Minted concept:saturation-perceived with locus experience and CIE S 017:2020 e-ILV term 17-22-073 locator.
+- [x] Minted concept:color-value-perceived with locus experience and Getty AAT 300056176 locator.
+- [x] Saturation remains distinct from chroma.
+- [x] Color value remains distinct from general brightness and from HSV/HSB numeric value coordinates.
+- [x] Artifact/color-space coordinate senses are intentionally not modeled in this batch.
+- [x] Added two source records; CIE S 017:2020 is reused by two concept-definition relations with separate locators.
+- [x] Added no claims or structural relations.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 65 records — 34 concepts, 9 claims, 22 sources.
+- [x] Outcome: PASS.

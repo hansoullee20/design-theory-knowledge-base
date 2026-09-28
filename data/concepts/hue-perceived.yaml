@@ -1,0 +1,28 @@
+id: concept:hue-perceived
+kind: concept
+label: Perceived hue
+aliases:
+- hue
+definition: A perceived color attribute by which an area appears similar to red, yellow, green, blue, or to combinations of adjacent members of that cyclic sequence.
+definition_sources:
+- source:cie-s017-2020-ilv
+definition_source_locators:
+- source: source:cie-s017-2020-ilv
+  selector:
+    type: SectionSelector
+    value: 17-22-067 hue
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+- standards-body
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Perceptual sense only. Numerical hue coordinates used by particular color spaces are not modeled in this batch.
+schema_version: '0.1'

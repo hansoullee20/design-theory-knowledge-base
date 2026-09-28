@@ -1,0 +1,8 @@
+id: source:cie-s017-2020-ilv
+kind: source
+citation: 'Commission Internationale de l''Éclairage (CIE). CIE S 017:2020 ILV: International Lighting Vocabulary, 2nd edition. Vienna: CIE, 2020.'
+source_type: standard
+year: 2020
+identifier: CIE S 017:2020
+notes: International Lighting Vocabulary. The CIE e-ILV provides the term-level definitions used here for hue (17-22-067) and saturation (17-22-073). Exact term locators are stored on the concept-source relations.
+schema_version: '0.1'

@@ -1,0 +1,29 @@
+id: concept:color-value-perceived
+kind: concept
+label: Perceived color value
+aliases:
+- value
+- color value
+- colour value
+definition: The perceived degree of lightness or darkness of a hue, conventionally ranging from white at the lightest end to black at the darkest end.
+definition_sources:
+- source:getty-aat-300056176-value-color-property
+definition_source_locators:
+- source: source:getty-aat-300056176-value-color-property
+  selector:
+    type: SectionSelector
+    value: AAT record 300056176, Note (English)
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Art/design color-value sense. Kept distinct from general brightness, photometric quantities, and HSV/HSB numeric value coordinates.
+schema_version: '0.1'

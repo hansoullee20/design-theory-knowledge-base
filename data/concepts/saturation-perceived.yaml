@@ -1,0 +1,28 @@
+id: concept:saturation-perceived
+kind: concept
+label: Perceived saturation
+aliases:
+- saturation
+definition: A perceived color attribute expressing an area's colourfulness relative to its perceived brightness.
+definition_sources:
+- source:cie-s017-2020-ilv
+definition_source_locators:
+- source: source:cie-s017-2020-ilv
+  selector:
+    type: SectionSelector
+    value: 17-22-073 saturation
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+- standards-body
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Perceptual sense only. Saturation is not collapsed into chroma, and numerical saturation coordinates used by particular color spaces are not modeled in this batch.
+schema_version: '0.1'
