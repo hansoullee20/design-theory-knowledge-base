@@ -1,0 +1,8 @@
+id: source:nng-2025-good-visual-design
+kind: source
+citation: Gordon, Kelley. Good Visual Design, Explained. Nielsen Norman Group, 14 November 2025.
+source_type: web
+year: 2025
+identifier: ''
+notes: 'Design-practice guidance. Section ''Visual Principle: Grid Use and Alignment'' states that grids help create cohesive layouts and recommends using a grid to keep alignment consistent across different pages and elements. Used as expert-opinion/design-practice support rather than empirical effect-size evidence.'
+schema_version: '0.1'

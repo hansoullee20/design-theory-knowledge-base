@@ -1,0 +1,27 @@
+id: concept:grid-use
+kind: concept
+label: Grid use
+aliases:
+- use of a grid
+definition: The design practice of organizing and positioning visual elements according to a grid.
+definition_sources:
+- source:nng-2025-good-visual-design
+definition_source_locators:
+- source: source:nng-2025-good-visual-design
+  selector:
+    type: SectionSelector
+    value: 'Visual Principle: Grid Use and Alignment'
+locus:
+- practice
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Practice sense deliberately separated from concept:grid, which represents the artifact-level organizational system itself.
+schema_version: '0.1'

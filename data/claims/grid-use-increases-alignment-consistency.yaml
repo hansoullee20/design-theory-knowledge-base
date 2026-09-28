@@ -1,0 +1,22 @@
+id: claim:grid-use-increases-alignment-consistency
+kind: claim
+statement: Using a grid can increase alignment consistency across different pages and elements in a design.
+modality: descriptive
+subject: concept:grid-use
+predicate: increases
+object: concept:alignment-consistency
+basis:
+- expert-opinion
+evidence_status: unassessed
+scope: Design-practice guidance for visual and interface layouts. The cited source explicitly recommends grid use to keep alignment consistent across pages and elements. This record does not assert an empirically quantified causal effect, universal guarantee, or effect size; results depend on how consistently the grid is applied.
+sources:
+- source:nng-2025-good-visual-design
+source_locators:
+- source: source:nng-2025-good-visual-design
+  selector:
+    type: SectionSelector
+    value: 'Visual Principle: Grid Use and Alignment'
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-02B tests a practice-locus subject and artifact-locus object without conflating concept:grid with the practice of using a grid.
+schema_version: '0.1'

@@ -1,0 +1,27 @@
+id: concept:alignment-consistency
+kind: concept
+label: Alignment consistency
+aliases:
+- consistent alignment
+definition: The degree to which visual elements maintain consistent alignment relationships across elements or pages of a design.
+definition_sources:
+- source:nng-2025-good-visual-design
+definition_source_locators:
+- source: source:nng-2025-good-visual-design
+  selector:
+    type: SectionSelector
+    value: 'Visual Principle: Grid Use and Alignment'
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Artifact-level consistency property. It is not the same concept as left alignment, which names a specific alignment mode.
+schema_version: '0.1'

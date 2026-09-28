@@ -39,7 +39,7 @@
 ## Required associated claims
 - [x] proximity → perceptual grouping
 - [x] print size → reading speed (artifact → outcome, actor-dependence in scope)
-- [ ] grid use → alignment consistency
+- [x] grid use → alignment consistency
 - [ ] F-pattern contextual claim
 - [ ] left alignment prescriptive/conventional claim
 
@@ -284,3 +284,19 @@
 - [x] Candidate future senses include `concept:menu-button`, `concept:menu`, `concept:combobox`, and `concept:disclosure`, subject to competency-question demand and separate source adjudication.
 - [x] No canonical concept, claim, source, schema, vocabulary, predicate, locus, runtime-contract, or Foundation mutation was required.
 - [x] Outcome: `LEXICAL_AMBIGUITY_SPLIT_REQUIRED`.
+
+## REGISTRY-BATCH-02B — GRID USE AND ALIGNMENT CONSISTENCY
+
+- [x] Tested the required grid use → alignment consistency stress case under the Registry Population Protocol.
+- [x] Reused existing concept:grid as the artifact-level grid system but did not misuse it as the practice endpoint.
+- [x] Minted concept:grid-use with locus practice.
+- [x] Minted concept:alignment-consistency with locus artifact.
+- [x] Kept alignment consistency distinct from existing concept:left-alignment, which represents a specific alignment mode.
+- [x] Added source:nng-2025-good-visual-design with an exact section locator to Visual Principle: Grid Use and Alignment.
+- [x] Minted claim:grid-use-increases-alignment-consistency.
+- [x] Claim uses descriptive modality, increases predicate, expert-opinion basis, and unassessed evidence status.
+- [x] Scope explicitly excludes an empirically quantified effect, universal guarantee, or effect-size interpretation.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 69 records — 36 concepts, 10 claims, 23 sources.
+- [x] Outcome: PASS_WITH_QUALIFICATION.
