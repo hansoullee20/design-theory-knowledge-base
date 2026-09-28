@@ -53,8 +53,14 @@ print("===== REGISTRY-BATCH-02B FINALIZE =====")
 if out("git", "branch", "--show-current") != BRANCH:
     fail(f"expected branch {BRANCH}")
 
-status = out("git", "status", "--porcelain").splitlines()
-actual = sorted(line[3:] for line in status)
+# Do not use out() here: out().strip() removes the leading status-column
+# space from the first porcelain line (e.g. " M pilot/..." -> "M pilot/..."),
+# which shifts fixed-column parsing and drops the first path character.
+status_raw = subprocess.check_output(
+    ["git", "status", "--porcelain=v1"], cwd=ROOT, text=True
+)
+status = status_raw.splitlines()
+actual = sorted(line[2:].lstrip() for line in status)
 if actual != EXPECTED_PATHS:
     fail(
         "unexpected mutation boundary\nEXPECTED:\n"
