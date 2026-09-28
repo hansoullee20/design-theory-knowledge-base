@@ -318,3 +318,18 @@
 - [x] Canonical checker and permanent self-tests pass with 0 warnings.
 - [x] Corpus after batch: 74 records — 38 concepts, 11 claims, 25 sources.
 - [x] Outcome: `PASS_WITH_CONTEXTUAL_QUALIFICATION`.
+
+## REGISTRY-BATCH-03A — SHAPE AND COMPOSITIONAL SPACE
+
+- [x] Began post-stress fundamentals expansion under the Registry Population Protocol.
+- [x] Minted concept:shape-visual with locus artifact.
+- [x] Minted concept:space-compositional with locus artifact.
+- [x] Used sense-qualified IDs rather than bare shape or space.
+- [x] Added Getty AAT record 300056273 with an exact Note (English) locator for visual shape.
+- [x] Added Getty AAT record 300068896 with an exact Note (English) locator for compositional space.
+- [x] Added no claims or structural relations.
+- [x] form, color, balance, typography, and feedback remain deferred for separate sense adjudication.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 78 records — 40 concepts, 11 claims, 27 sources.
+- [x] Outcome: PASS.

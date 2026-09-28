@@ -1,0 +1,27 @@
+id: concept:space-compositional
+kind: concept
+label: Compositional space
+aliases:
+- space
+definition: The two- or three-dimensional areas around, above, below, beside, between, and within objects that function as elements of a visual composition, whether actual or simulated.
+definition_sources:
+- source:getty-aat-300068896-space-composition
+definition_source_locators:
+- source: source:getty-aat-300068896-space-composition
+  selector:
+    type: SectionSelector
+    value: AAT record 300068896, Note (English)
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified to distinguish compositional space from physical/geometric space and from experienced spaciousness.
+schema_version: '0.1'

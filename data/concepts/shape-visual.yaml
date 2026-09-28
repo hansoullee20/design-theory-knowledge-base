@@ -1,0 +1,27 @@
+id: concept:shape-visual
+kind: concept
+label: Visual shape
+aliases:
+- shape
+definition: The visible outline, external form, or characteristic configuration of an object, including its contours or outer boundary.
+definition_sources:
+- source:getty-aat-300056273-shape-form-attribute
+definition_source_locators:
+- source: source:getty-aat-300056273-shape-form-attribute
+  selector:
+    type: SectionSelector
+    value: AAT record 300056273, Note (English)
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified to distinguish the artifact-borne visual/form attribute from mathematical shape and from perceived-shape experience.
+schema_version: '0.1'
