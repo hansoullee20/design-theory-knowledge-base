@@ -1,0 +1,8 @@
+id: source:nielsen-2006-f-pattern
+kind: source
+citation: Nielsen, Jakob. F-Shaped Pattern For Reading Web Content (Original Study). Nielsen Norman Group, 16 April 2006.
+source_type: web
+year: 2006
+identifier: ''
+notes: NN/g summary of the original eyetracking study. Reports 232 users viewing thousands of web pages and describes the recurring F-shaped scanning pattern.
+schema_version: '0.1'

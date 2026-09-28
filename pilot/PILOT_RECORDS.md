@@ -30,7 +30,7 @@
 ## Method / component / claim boundary
 - [ ] card sorting
 - [ ] dropdown menu
-- [ ] F-pattern
+- [x] F-pattern
 
 ## Convention / standard boundary
 - [ ] left-aligned body text
@@ -40,7 +40,7 @@
 - [x] proximity → perceptual grouping
 - [x] print size → reading speed (artifact → outcome, actor-dependence in scope)
 - [x] grid use → alignment consistency
-- [ ] F-pattern contextual claim
+- [x] F-pattern contextual claim
 - [ ] left alignment prescriptive/conventional claim
 
 ## ACTOR-LOCUS-IMPLEMENTATION-01
@@ -300,3 +300,21 @@
 - [x] Canonical checker and permanent self-tests pass with 0 warnings.
 - [x] Corpus after batch: 69 records — 36 concepts, 10 claims, 23 sources.
 - [x] Outcome: PASS_WITH_QUALIFICATION.
+
+## REGISTRY-BATCH-02C — F-PATTERN CONTEXTUAL CLAIM
+
+- [x] Tested the F-pattern stress case under the Registry Population Protocol.
+- [x] Determined that the term names an observed scanning behavior rather than a reusable design-solution `pattern` record.
+- [x] Minted `concept:minimally-formatted-web-text` with `locus: [artifact]`.
+- [x] Minted `concept:f-shaped-scanning` with `locus: [outcome]`.
+- [x] Added `source:nielsen-2006-f-pattern` for the original eyetracking report.
+- [x] Added `source:pernice-2017-f-pattern` for the later contextual clarification.
+- [x] Minted `claim:minimally-formatted-web-text-influences-f-shaped-scanning`.
+- [x] Claim uses `modality: descriptive`, `predicate: influences`, `basis: [empirical]`, and `evidence_status: unassessed`.
+- [x] Scope preserves the contextual conditions: efficiency-seeking behavior, limited commitment to reading every word, content-area scanning, and the existence of alternative scanning patterns.
+- [x] User motivation and reading commitment remain in claim `scope`; no concepts were minted solely to encode population/context descriptors.
+- [x] F-shaped scanning is not represented as a universal law, prescription, or reusable design pattern.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 74 records — 38 concepts, 11 claims, 25 sources.
+- [x] Outcome: `PASS_WITH_CONTEXTUAL_QUALIFICATION`.

@@ -1,0 +1,28 @@
+id: concept:minimally-formatted-web-text
+kind: concept
+label: Minimally formatted web text
+aliases:
+- poorly formatted web text
+- wall of text
+definition: Web-page text presented with little or no formatting aids such as subheadings, bullets, or emphasis that support scanning.
+definition_sources:
+- source:pernice-2017-f-pattern
+definition_source_locators:
+- source: source:pernice-2017-f-pattern
+  selector:
+    type: SectionSelector
+    value: Why People Scan in an F-Shaped Pattern
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- human-factors
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Artifact-context sense used only to express the empirically observed scanning claim; it does not assert that all minimally formatted text produces one scanning pattern.
+schema_version: '0.1'

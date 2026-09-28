@@ -1,0 +1,33 @@
+id: concept:f-shaped-scanning
+kind: concept
+label: F-shaped scanning
+aliases:
+- F-pattern
+- F-shaped reading pattern
+definition: A web-content scanning pattern in which gaze is concentrated near the top and left side of the content area, typically forming two horizontal movements followed by a more vertical movement down the left side.
+definition_sources:
+- source:nielsen-2006-f-pattern
+- source:pernice-2017-f-pattern
+definition_source_locators:
+- source: source:nielsen-2006-f-pattern
+  selector:
+    type: SectionSelector
+    value: F-Shaped Pattern For Reading Web Content
+- source: source:pernice-2017-f-pattern
+  selector:
+    type: SectionSelector
+    value: The F-Shaped Pattern
+locus:
+- outcome
+facets: []
+disciplines: []
+knowledge_origin:
+- human-factors
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Modeled as an episode-level measurable scanning outcome, not a universal reading strategy and not a reusable design-solution pattern record.
+schema_version: '0.1'

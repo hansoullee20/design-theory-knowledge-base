@@ -1,0 +1,27 @@
+id: claim:minimally-formatted-web-text-influences-f-shaped-scanning
+kind: claim
+statement: Minimally formatted web text can contribute to F-shaped scanning when users are trying to be efficient and are not committed to reading every word.
+modality: descriptive
+subject: concept:minimally-formatted-web-text
+predicate: influences
+object: concept:f-shaped-scanning
+basis:
+- empirical
+evidence_status: unassessed
+scope: 'Applies to scanning of the content area of web pages, not navigation inspection. F-shaped scanning is one of several observed scanning patterns, is rarely a perfect letter F, and is context dependent. The 2017 clarification identifies three co-occurring conditions: little or no web formatting, an efficiency-seeking user goal, and insufficient commitment to read every word. Good formatting can reduce F-shaped scanning; the claim is not universal.'
+sources:
+- source:nielsen-2006-f-pattern
+- source:pernice-2017-f-pattern
+source_locators:
+- source: source:nielsen-2006-f-pattern
+  selector:
+    type: SectionSelector
+    value: F-Shaped Pattern For Reading Web Content
+- source: source:pernice-2017-f-pattern
+  selector:
+    type: SectionSelector
+    value: Why People Scan in an F-Shaped Pattern
+record_status: draft
+replaced_by: []
+notes: Draft for REGISTRY-BATCH-02C. The artifact condition is represented structurally; user motivation/commitment remain in scope rather than being promoted to concepts solely for this claim.
+schema_version: '0.1'
