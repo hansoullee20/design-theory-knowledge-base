@@ -273,3 +273,14 @@
 - [x] Canonical checker: PASS with 0 warnings.
 - [x] Registry population workflow consolidated into `docs/REGISTRY_POPULATION_PROTOCOL.md`.
 - [x] Outcome: `REGISTRY_POPULATION_MODEL_PROVEN`.
+
+## REGISTRY-BATCH-02A — DROPDOWN TERMINOLOGY ADJUDICATION
+
+- [x] Tested pilot candidate `dropdown menu` under the Registry Population Protocol.
+- [x] Determined that the lexical term does not identify one sufficiently precise canonical UI-component sense.
+- [x] WAI-ARIA APG distinguishes menu button, menu, combobox, and disclosure interaction patterns rather than treating them as one widget.
+- [x] Design-practice terminology also distinguishes navigation/command dropdown menus from selection-oriented dropdown controls.
+- [x] Bare `concept:dropdown-menu` was therefore not minted.
+- [x] Candidate future senses include `concept:menu-button`, `concept:menu`, `concept:combobox`, and `concept:disclosure`, subject to competency-question demand and separate source adjudication.
+- [x] No canonical concept, claim, source, schema, vocabulary, predicate, locus, runtime-contract, or Foundation mutation was required.
+- [x] Outcome: `LEXICAL_AMBIGUITY_SPLIT_REQUIRED`.
