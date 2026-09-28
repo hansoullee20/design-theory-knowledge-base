@@ -259,3 +259,17 @@
 - [x] Canonical checker and permanent self-tests pass with 0 warnings.
 - [x] Corpus after batch: 65 records — 34 concepts, 9 claims, 22 sources.
 - [x] Outcome: PASS.
+
+## REGISTRY-BATCH-01-CLOSEOUT
+
+- [x] REGISTRY-BATCH-01A integrated into main at commit `8f43a91`.
+- [x] REGISTRY-BATCH-01B integrated into main at commit `43b4817`.
+- [x] Six initial visual/color fundamentals resolved into six sense-qualified canonical concepts.
+- [x] Bare lexical IDs were avoided where semantic ambiguity required qualification.
+- [x] Exact source locators were used through the PF-001 relation-level provenance mechanism.
+- [x] Batch growth required no schema, predicate, vocabulary, locus, runtime-contract, or Foundation change.
+- [x] Canonical corpus after Batch 01: 65 records — 34 concepts, 9 claims, 22 sources.
+- [x] Permanent self-tests: 36 PASS.
+- [x] Canonical checker: PASS with 0 warnings.
+- [x] Registry population workflow consolidated into `docs/REGISTRY_POPULATION_PROTOCOL.md`.
+- [x] Outcome: `REGISTRY_POPULATION_MODEL_PROVEN`.
