@@ -24,3 +24,8 @@ record_status: draft
 replaced_by: []
 notes: Whitespace is represented as an artifact-borne spatial property. Micro/macro subtypes are not introduced in v0.1.
 schema_version: '0.1'
+definition_source_locators:
+- source: source:soegaard-2020-white-space
+  selector:
+    type: SectionSelector
+    value: What is White Space?

@@ -16,3 +16,12 @@ record_status: draft
 replaced_by: []
 notes: WHITESPACE-DENSITY-01 tests the existing decreases predicate against the perceived-density sense. It deliberately does not target display-object-density, whose definition is an objective count per unit/area and is not automatically the inverse of whitespace.
 schema_version: '0.1'
+source_locators:
+- source: source:soegaard-2020-white-space
+  selector:
+    type: SectionSelector
+    value: What is White Space?
+- source: source:tyler-forge-grid
+  selector:
+    type: TextQuoteSelector
+    exact: White space can be a great tool to balance design elements, create room to breathe, lower the perceived density of content

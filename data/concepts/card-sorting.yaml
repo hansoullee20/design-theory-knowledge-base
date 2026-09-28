@@ -19,3 +19,8 @@ record_status: draft
 replaced_by: []
 notes: ''
 schema_version: '0.1'
+definition_source_locators:
+- source: source:nng-2024-card-sorting
+  selector:
+    type: SectionSelector
+    value: Definition of Card Sorting
