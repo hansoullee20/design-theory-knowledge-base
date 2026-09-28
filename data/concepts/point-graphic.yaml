@@ -1,0 +1,27 @@
+id: concept:point-graphic
+kind: concept
+label: Graphic point
+aliases:
+- point
+definition: A visible dot or localized mark used as a basic visual element in a composition.
+definition_sources:
+- source:graphic-communications-open-textbook-collective-2015-graphic-design
+definition_source_locators:
+- source: source:graphic-communications-open-textbook-collective-2015-graphic-design
+  selector:
+    type: SectionSelector
+    value: Chapter 3.2, Point
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified to distinguish the graphic/design element from mathematical point and focal-point senses.
+schema_version: '0.1'

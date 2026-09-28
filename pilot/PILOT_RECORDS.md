@@ -226,3 +226,19 @@
 - [x] Backward-compatible extension retains schema_version 0.1.
 - [x] Taxonomy semantics remain frozen; Foundation rev. 12 to rev. 13.
 - [x] PF-001 outcome: RESOLVED.
+
+## REGISTRY-BATCH-01A — VISUAL/FORM FUNDAMENTALS
+
+- [x] Population branch starts from post-PF-001 main checkpoint 12171f1.
+- [x] Minted concept:point-graphic with locus artifact and an exact Chapter 3.2 > Point locator.
+- [x] Minted concept:line-graphic with locus artifact and Getty AAT 300400858 locator.
+- [x] Minted concept:contrast-visual with locus artifact and Getty AAT 300260079 locator.
+- [x] Kept concept:contrast-visual distinct from existing concept:contrast-ratio.
+- [x] Used sense-qualified IDs for point and line rather than overloaded bare lexical IDs.
+- [x] Added three source records; no existing canonical source was duplicated.
+- [x] Added no claims or structural relations.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] hue, value, and saturation remain deferred to REGISTRY-BATCH-01B for sense/locus adjudication.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 60 records — 31 concepts, 9 claims, 20 sources.
+- [x] Outcome: PASS.

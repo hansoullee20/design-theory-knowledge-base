@@ -1,0 +1,27 @@
+id: concept:contrast-visual
+kind: concept
+label: Visual contrast
+aliases:
+- contrast
+definition: The juxtaposition of dissimilar visual elements, properties, or qualities in a work such that their differences are revealed through comparison.
+definition_sources:
+- source:getty-aat-300260079-contrast
+definition_source_locators:
+- source: source:getty-aat-300260079-contrast
+  selector:
+    type: SectionSelector
+    value: AAT record 300260079, Note (English)
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Formal visual concept distinct from concept:contrast-ratio, which is a quantitative luminance-ratio construct.
+schema_version: '0.1'

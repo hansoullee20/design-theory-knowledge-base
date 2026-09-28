@@ -1,0 +1,27 @@
+id: concept:line-graphic
+kind: concept
+label: Graphic line
+aliases:
+- line
+definition: A visible or implied elongated mark or linear form in a composition, long in proportion to its breadth and traceable on a surface or inferable through the joining of points.
+definition_sources:
+- source:getty-aat-300400858-lines-artistic-concept
+definition_source_locators:
+- source: source:getty-aat-300400858-lines-artistic-concept
+  selector:
+    type: SectionSelector
+    value: AAT record 300400858, Note (English)
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified to distinguish the graphic/artistic line from mathematical, textual-line, contour, and other line senses.
+schema_version: '0.1'
