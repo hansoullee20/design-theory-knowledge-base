@@ -19,3 +19,8 @@ record_status: draft
 replaced_by: []
 notes: ''
 schema_version: '0.1'
+definition_source_locators:
+- source: source:muller-brockmann-1981-grid-systems
+  selector:
+    type: SectionSelector
+    value: The typographic grid
