@@ -20,3 +20,8 @@ record_status: draft
 replaced_by: []
 notes: ''
 schema_version: '0.1'
+definition_source_locators:
+- source: source:w3c-wcag-2-2
+  selector:
+    type: SectionSelector
+    value: contrast ratio
