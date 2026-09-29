@@ -8,10 +8,15 @@ object: concept:critical-print-size
 basis:
 - empirical
 evidence_status: unassessed
-scope: Greater visual acuity is associated with smaller critical print size (Legge & Bigelow, 2011).
+scope: Greater visual acuity is associated with smaller critical print size; critical print size also depends on central-field status and font (Xiong et al., 2022).
 sources:
-- source:legge-bigelow-2011-print-size
+- source:xiong-atilgan-fletcher-legge-2022-digital-reading-low-vision
 record_status: draft
 replaced_by: []
-notes: The directional association is recorded in scope. The predicate remains influences rather than decreases because numeric direction belongs to a specific operationalization; the concept definition itself has explicit polarity.
+notes: The directional association is recorded in scope. The predicate remains influences rather than decreases because numeric direction belongs to a specific operationalization; the concept definition itself has explicit polarity. Source corrected from Legge & Bigelow (2011) to Xiong et al. (2022), which directly states the acuity–critical-print-size association.
 schema_version: '0.1'
+source_locators:
+- source: source:xiong-atilgan-fletcher-legge-2022-digital-reading-low-vision
+  selector:
+    type: TextQuoteSelector
+    exact: An individual’s critical print size is highly correlated with their visual acuity, with worse acuity requiring larger critical print size.
