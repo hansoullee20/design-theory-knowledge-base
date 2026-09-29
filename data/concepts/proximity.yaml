@@ -1,24 +1,29 @@
 id: concept:proximity
 kind: concept
-label: "Proximity"
+label: Proximity
 aliases:
-  - "spatial proximity"
-definition: "The degree of spatial closeness between visual elements."
+- spatial proximity
+definition: The degree of spatial closeness between visual elements.
 definition_sources:
-  - source:wagemans-2012-gestalt-i
+- source:wagemans-2012-gestalt-i
 locus:
-  - artifact
+- artifact
 facets:
-  - layout
+- layout
 disciplines: []
 knowledge_origin:
-  - perceptual-science
+- perceptual-science
 traditions:
-  - gestalt
+- gestalt
 is_a: []
 part_of: []
 related: []
 record_status: draft
 replaced_by: []
-notes: ""
-schema_version: "0.1"
+notes: ''
+schema_version: '0.1'
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.1 Introduction

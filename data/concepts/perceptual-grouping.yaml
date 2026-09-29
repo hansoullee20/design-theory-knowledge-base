@@ -1,23 +1,28 @@
 id: concept:perceptual-grouping
 kind: concept
-label: "Perceptual grouping"
+label: Perceptual grouping
 aliases:
-  - "visual grouping"
-definition: "The perceptual organization of separate visual elements into coherent groups or units."
+- visual grouping
+definition: The perceptual organization of separate visual elements into coherent groups or units.
 definition_sources:
-  - source:wagemans-2012-gestalt-i
+- source:wagemans-2012-gestalt-i
 locus:
-  - experience
+- experience
 facets: []
 disciplines: []
 knowledge_origin:
-  - perceptual-science
+- perceptual-science
 traditions:
-  - gestalt
+- gestalt
 is_a: []
 part_of: []
 related: []
 record_status: draft
 replaced_by: []
-notes: ""
-schema_version: "0.1"
+notes: ''
+schema_version: '0.1'
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.1 Introduction

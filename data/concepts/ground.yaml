@@ -20,3 +20,8 @@ record_status: draft
 replaced_by: []
 notes: ''
 schema_version: '0.1'
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 5.1 Introduction
