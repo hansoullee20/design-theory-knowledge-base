@@ -34,3 +34,11 @@ definition_source_locators:
   selector:
     type: SectionSelector
     value: Screen type sizes in on-line newspapers
+- source: source:beier-2012-reading-letters
+  selector:
+    type: SectionSelector
+    value: Test methods
+- source: source:beier-2012-reading-letters
+  selector:
+    type: SectionSelector
+    value: Visual accuracy threshold
