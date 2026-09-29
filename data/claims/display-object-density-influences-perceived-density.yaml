@@ -1,17 +1,22 @@
 id: claim:display-object-density-influences-perceived-density
 kind: claim
-statement: "Properties contributing to objective display density can influence a viewer's perceived density of the display."
+statement: Properties contributing to objective display density can influence a viewer's perceived density of the display.
 modality: explanatory
 subject: concept:display-object-density
 predicate: influences
 object: concept:perceived-density
 basis:
-  - empirical
+- empirical
 evidence_status: unassessed
-scope: "Direct empirical support in the cited source concerns electronic road maps, where counts and properties of displayed map elements predicted perceived-density ratings. Generalization beyond comparable visual displays remains unassessed."
+scope: Direct empirical support in the cited source concerns electronic road maps, where counts and properties of displayed map elements predicted perceived-density ratings. Generalization beyond comparable visual displays remains unassessed.
 sources:
-  - source:schwartz-chassidim-2014-perceived-density
+- source:schwartz-chassidim-2014-perceived-density
 record_status: draft
 replaced_by: []
-notes: "Pilot claim used to test artifact-to-experience sense separation and quantification readiness; no evidence-strength judgment has been made."
-schema_version: "0.1"
+notes: Pilot claim used to test artifact-to-experience sense separation and quantification readiness; no evidence-strength judgment has been made.
+schema_version: '0.1'
+source_locators:
+- source: source:schwartz-chassidim-2014-perceived-density
+  selector:
+    type: SectionSelector
+    value: Abstract
