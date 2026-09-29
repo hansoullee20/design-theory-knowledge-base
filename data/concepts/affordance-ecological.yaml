@@ -1,25 +1,30 @@
 id: concept:affordance-ecological
 kind: concept
-label: "Ecological affordance"
+label: Ecological affordance
 aliases:
-  - "Gibsonian affordance"
-definition: "What the environment offers an animal for action relative to that animal's capabilities, existing whether or not it is perceived."
+- Gibsonian affordance
+definition: What the environment offers an animal for action relative to that animal's capabilities, existing whether or not it is perceived.
 definition_sources:
-  - source:gibson-1979-ecological-approach
+- source:gibson-1979-ecological-approach
 locus:
-  - actor-relative
+- actor-relative
 facets:
-  - interaction
+- interaction
 disciplines: []
 knowledge_origin:
-  - perceptual-science
+- perceptual-science
 traditions:
-  - ecological-psychology
+- ecological-psychology
 is_a: []
 part_of: []
 related:
-  - concept:affordance-perceived
+- concept:affordance-perceived
 record_status: draft
 replaced_by: []
-notes: "Ecological affordance is distinct from perceived affordance; perception is not constitutive of the ecological affordance."
-schema_version: "0.1"
+notes: Ecological affordance is distinct from perceived affordance; perception is not constitutive of the ecological affordance.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:gibson-1979-ecological-approach
+  selector:
+    type: PageSelector
+    value: '127'
