@@ -1,28 +1,33 @@
 id: concept:readability-linguistic
 kind: concept
-label: "Readability (linguistic)"
+label: Readability (linguistic)
 aliases:
-  - "readability"
-  - "text readability"
-definition: "The degree to which the language of a text (vocabulary, sentence structure, and organization) makes it easy for a specified class of readers to read and understand, independent of its typographic presentation."
+- readability
+- text readability
+definition: The degree to which the language of a text (vocabulary, sentence structure, and organization) makes it easy for a specified class of readers to read and understand, independent of its typographic presentation.
 definition_sources:
-  - source:dubay-2004-principles-of-readability
+- source:dubay-2004-principles-of-readability
 locus:
-  - actor-relative
+- actor-relative
 facets:
-  - language
+- language
 disciplines:
-  - communication-design
-  - information-design-visualization
+- communication-design
+- information-design-visualization
 knowledge_origin:
-  - cognitive-psychology
-  - human-factors
+- cognitive-psychology
+- human-factors
 traditions: []
 is_a: []
 part_of: []
 related:
-  - concept:legibility-typeface
+- concept:legibility-typeface
 record_status: draft
 replaced_by: []
-notes: "This sense concerns reader-relative linguistic readability. Artifact-side textual properties used by readability formulas remain separate concepts or measurable variables."
-schema_version: "0.1"
+notes: This sense concerns reader-relative linguistic readability. Artifact-side textual properties used by readability formulas remain separate concepts or measurable variables.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:dubay-2004-principles-of-readability
+  selector:
+    type: SectionSelector
+    value: What is readability?
