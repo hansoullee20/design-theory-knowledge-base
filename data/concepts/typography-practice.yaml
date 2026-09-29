@@ -1,0 +1,27 @@
+id: concept:typography-practice
+kind: concept
+label: Typography practice
+aliases:
+- typography
+definition: A design and production practice involving processes performed with type and typefaces, including setting type and arranging type in layouts for printing.
+definition_sources:
+- source:getty-aat-300195853-typography
+definition_source_locators:
+- source: source:getty-aat-300195853-typography
+  selector:
+    type: SectionSelector
+    value: AAT record 300195853, Note (English)
+locus:
+- practice
+facets: []
+disciplines: []
+knowledge_origin:
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Practice sense only. Artifact-side typographic treatment and type design remain separate senses; Getty AAT explicitly distinguishes typography from type design.
+schema_version: '0.1'

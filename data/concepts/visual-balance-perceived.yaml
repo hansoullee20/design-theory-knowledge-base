@@ -1,0 +1,28 @@
+id: concept:visual-balance-perceived
+kind: concept
+label: Perceived visual balance
+aliases:
+- visual balance
+- balance
+definition: The perceived visual equilibrium of elements within a composition.
+definition_sources:
+- source:getty-aat-300056247-balance-composition
+definition_source_locators:
+- source: source:getty-aat-300056247-balance-composition
+  selector:
+    type: SectionSelector
+    value: AAT record 300056247, Note (English)
+locus:
+- experience
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified because the AAT scope note characterizes balance as an impression of visual equilibrium; this record therefore represents experienced balance rather than an unqualified artifact-side metric.
+schema_version: '0.1'

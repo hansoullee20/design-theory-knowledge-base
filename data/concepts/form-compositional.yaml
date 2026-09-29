@@ -1,0 +1,27 @@
+id: concept:form-compositional
+kind: concept
+label: Compositional form
+aliases:
+- form
+definition: The design or organization of visual elements such as line, mass, shape, or color within a work of art or architecture.
+definition_sources:
+- source:getty-aat-300056272-form-composition
+definition_source_locators:
+- source: source:getty-aat-300056272-form-composition
+  selector:
+    type: SectionSelector
+    value: AAT record 300056272, Note (English)
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- art-craft
+traditions: []
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Sense-qualified to distinguish compositional form from visual shape, physical three-dimensional form, form as document structure, and other uses of the lexical term.
+schema_version: '0.1'
