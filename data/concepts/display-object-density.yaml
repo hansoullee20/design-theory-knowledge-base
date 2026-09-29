@@ -1,28 +1,37 @@
 id: concept:display-object-density
 kind: concept
-label: "Display object density"
+label: Display object density
 aliases:
-  - "objective display density"
-definition: "The number of displayed objects relative to a defined display unit or area."
+- objective display density
+definition: The number of displayed objects relative to a defined display unit or area.
 definition_sources:
-  - source:woodruff-landay-stonebraker-1998-density
+- source:woodruff-landay-stonebraker-1998-density
 locus:
-  - artifact
+- artifact
 facets:
-  - layout
-  - information-structure
+- layout
+- information-structure
 disciplines:
-  - information-design-visualization
-  - interface-interaction-design
+- information-design-visualization
+- interface-interaction-design
 knowledge_origin:
-  - human-factors
-  - design-practice
+- human-factors
+- design-practice
 traditions: []
 is_a: []
 part_of: []
 related:
-  - concept:perceived-density
+- concept:perceived-density
 record_status: draft
 replaced_by: []
-notes: "Pilot operational sense. This is deliberately narrower than the ambiguous everyday term 'density' and should not be read as the only possible objective density metric."
-schema_version: "0.1"
+notes: Pilot operational sense. This is deliberately narrower than the ambiguous everyday term 'density' and should not be read as the only possible objective density metric.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:woodruff-landay-stonebraker-1998-density
+  selector:
+    type: TextQuoteSelector
+    exact: This principle states that the number of objects per display unit should be constant.
+- source: source:woodruff-landay-stonebraker-1998-density
+  selector:
+    type: TextQuoteSelector
+    exact: As mentioned above, our system currently determines density according to the number of objects.
