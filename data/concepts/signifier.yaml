@@ -1,26 +1,31 @@
 id: concept:signifier
 kind: concept
-label: "Signifier"
+label: Signifier
 aliases: []
-definition: "A perceptible cue in an artifact that indicates where or how an action can be performed."
+definition: A perceptible cue in an artifact that indicates where or how an action can be performed.
 definition_sources:
-  - source:norman-2014-design-everyday-things
+- source:norman-2014-design-everyday-things
 locus:
-  - artifact
+- artifact
 facets:
-  - interaction
+- interaction
 disciplines:
-  - interface-interaction-design
+- interface-interaction-design
 knowledge_origin:
-  - design-practice
-  - cognitive-psychology
+- design-practice
+- cognitive-psychology
 traditions:
-  - cognitive-engineering-hci
+- cognitive-engineering-hci
 is_a: []
 part_of: []
 related:
-  - concept:affordance-perceived
+- concept:affordance-perceived
 record_status: draft
 replaced_by: []
-notes: "Paraphrases Norman's functional account while keeping achieved effects on an actor in claim records."
-schema_version: "0.1"
+notes: Paraphrases Norman's functional account while keeping achieved effects on an actor in claim records.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:norman-2014-design-everyday-things
+  selector:
+    type: PageSelector
+    value: '14'

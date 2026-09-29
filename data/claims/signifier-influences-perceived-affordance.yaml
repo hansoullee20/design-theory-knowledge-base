@@ -1,18 +1,23 @@
 id: claim:signifier-influences-perceived-affordance
 kind: claim
-statement: "A perceivable signifier can influence what actions a user perceives to be available."
+statement: A perceivable signifier can influence what actions a user perceives to be available.
 modality: explanatory
 subject: concept:signifier
 predicate: influences
 object: concept:affordance-perceived
 basis:
-  - theoretical
-  - conventional
+- theoretical
+- conventional
 evidence_status: unassessed
-scope: "Design interaction contexts. This pilot claim represents Norman's design-theory distinction; empirical evidence strength has not yet been assessed."
+scope: Design interaction contexts. This pilot claim represents Norman's design-theory distinction; empirical evidence strength has not yet been assessed.
 sources:
-  - source:norman-2014-design-everyday-things
+- source:norman-2014-design-everyday-things
 record_status: draft
 replaced_by: []
-notes: ""
-schema_version: "0.1"
+notes: ''
+schema_version: '0.1'
+source_locators:
+- source: source:norman-2014-design-everyday-things
+  selector:
+    type: PageSelector
+    value: 13-14
