@@ -3,5 +3,5 @@ kind: source
 citation: 'Lupton, Ellen. Thinking with Type: A Critical Guide for Designers, Writers, Editors, & Students. 2nd rev. and expanded ed. Princeton Architectural Press, 2010. ISBN 9781568989693.'
 source_type: book
 year: 2010
-notes: Alignment section treats flush-left/ragged-right as the more familiar setting in Latin typography and notes flush-right is rarely used for long bodies of text. It also questions the common readability rationale, making it suitable for testing convention without treating familiarity as an empirical law. Exact source locator machinery remains deferred under PF-001.
+notes: Alignment section treats flush-left/ragged-right as the more familiar setting in Latin typography and notes flush-right is rarely used for long bodies of text. It also questions the common readability rationale, making it suitable for testing convention without treating familiarity as an empirical law.
 schema_version: '0.1'

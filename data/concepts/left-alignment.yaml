@@ -19,3 +19,8 @@ record_status: draft
 replaced_by: []
 notes: ''
 schema_version: '0.1'
+definition_source_locators:
+- source: source:lupton-2010-thinking-with-type
+  selector:
+    type: PageSelector
+    value: '113'
