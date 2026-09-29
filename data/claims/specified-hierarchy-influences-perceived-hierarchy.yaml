@@ -1,18 +1,23 @@
 id: claim:specified-hierarchy-influences-perceived-hierarchy
 kind: claim
-statement: "The visual hierarchy encoded in an artifact can influence the relative importance perceived by its viewer."
+statement: The visual hierarchy encoded in an artifact can influence the relative importance perceived by its viewer.
 modality: explanatory
 subject: concept:hierarchy-specified
 predicate: influences
 object: concept:hierarchy-perceived
 basis:
-  - theoretical
-  - conventional
+- theoretical
+- conventional
 evidence_status: unassessed
-scope: "Visual information presentation. The effect depends on the cues used, viewer, task, content, and context."
+scope: Visual information presentation. The effect depends on the cues used, viewer, task, content, and context.
 sources:
-  - source:saw-gatzke-2024-visual-hierarchy
+- source:saw-gatzke-2024-visual-hierarchy
 record_status: draft
 replaced_by: []
-notes: "Pilot claim. Evidence has not yet been assessed; the source is being used to test representation, not to establish a final evidence rating."
-schema_version: "0.1"
+notes: Pilot claim. Evidence has not yet been assessed; the source is being used to test representation, not to establish a final evidence rating.
+schema_version: '0.1'
+source_locators:
+- source: source:saw-gatzke-2024-visual-hierarchy
+  selector:
+    type: FigureSelector
+    value: Figure 1
