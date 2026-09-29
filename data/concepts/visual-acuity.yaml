@@ -19,3 +19,8 @@ record_status: draft
 replaced_by: []
 notes: 'Polarity is conceptual rather than tied to a measurement scale: greater acuity means finer spatial detail resolved. An operationalization such as logMAR may use an inverse numeric direction.'
 schema_version: '0.1'
+definition_source_locators:
+- source: source:legge-bigelow-2011-print-size
+  selector:
+    type: SectionSelector
+    value: PRINT SIZE METRICS AND TERMINOLOGY

@@ -1,31 +1,36 @@
 id: concept:legibility-typeface
 kind: concept
-label: "Typeface legibility"
+label: Typeface legibility
 aliases:
-  - "legibility"
-  - "letter legibility"
-definition: "The ease and accuracy with which the letters and words set in a given typeface and size can be identified by a reader with given visual capabilities."
+- legibility
+- letter legibility
+definition: The ease and accuracy with which the letters and words set in a given typeface and size can be identified by a reader with given visual capabilities.
 definition_sources:
-  - source:beier-2012-reading-letters
-  - source:legge-bigelow-2011-print-size
+- source:beier-2012-reading-letters
+- source:legge-bigelow-2011-print-size
 locus:
-  - actor-relative
+- actor-relative
 facets:
-  - typography
+- typography
 disciplines:
-  - communication-design
-  - interface-interaction-design
+- communication-design
+- interface-interaction-design
 knowledge_origin:
-  - perceptual-science
-  - design-practice
+- perceptual-science
+- design-practice
 traditions: []
 is_a: []
 part_of: []
 related:
-  - concept:print-size
-  - concept:reading-speed
-  - concept:readability-linguistic
+- concept:print-size
+- concept:reading-speed
+- concept:readability-linguistic
 record_status: draft
 replaced_by: []
-notes: "This sense concerns reader-relative typeface legibility. Artifact-side properties such as x-height, aperture, stroke form, and spacing are separate concepts rather than definitions of legibility."
-schema_version: "0.1"
+notes: This sense concerns reader-relative typeface legibility. Artifact-side properties such as x-height, aperture, stroke form, and spacing are separate concepts rather than definitions of legibility.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:legge-bigelow-2011-print-size
+  selector:
+    type: SectionSelector
+    value: Screen type sizes in on-line newspapers

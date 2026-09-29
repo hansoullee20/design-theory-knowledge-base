@@ -1,17 +1,22 @@
 id: claim:print-size-influences-reading-speed
 kind: claim
-statement: "Reading speed rises with print size up to a reader-specific critical print size, is roughly constant across a fluent range above it, and declines for very large print."
+statement: Reading speed rises with print size up to a reader-specific critical print size, is roughly constant across a fluent range above it, and declines for very large print.
 modality: descriptive
 subject: concept:print-size
 predicate: influences
 object: concept:reading-speed
 basis:
-  - empirical
+- empirical
 evidence_status: unassessed
-scope: "Reader-dependent: the critical print size and the bounds of the fluent range scale with the reader's visual acuity and visual span; established with normal-vision and low-vision readers under controlled viewing distance. Angular, not physical, print size is the operative variable."
+scope: 'Reader-dependent: the critical print size and the bounds of the fluent range scale with the reader''s visual acuity and visual span; established with normal-vision and low-vision readers under controlled viewing distance. Angular, not physical, print size is the operative variable.'
 sources:
-  - source:legge-bigelow-2011-print-size
+- source:legge-bigelow-2011-print-size
 record_status: draft
 replaced_by: []
-notes: "Pilot claim testing that an artifact → outcome claim can carry actor-dependence in scope while the concepts stay single-locus. Non-monotonic shape is captured by 'influences'; no evidence-strength judgment made."
-schema_version: "0.1"
+notes: Pilot claim testing that an artifact → outcome claim can carry actor-dependence in scope while the concepts stay single-locus. Non-monotonic shape is captured by 'influences'; no evidence-strength judgment made.
+schema_version: '0.1'
+source_locators:
+- source: source:legge-bigelow-2011-print-size
+  selector:
+    type: FigureSelector
+    value: Figure 2
