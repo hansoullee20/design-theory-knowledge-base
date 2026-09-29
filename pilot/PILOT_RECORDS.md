@@ -333,3 +333,19 @@
 - [x] Canonical checker and permanent self-tests pass with 0 warnings.
 - [x] Corpus after batch: 78 records — 40 concepts, 11 claims, 27 sources.
 - [x] Outcome: PASS.
+
+## PF-001-LOCATOR-RETROFIT-CLOSEOUT
+
+- [x] PF-001 relation-level locator architecture was introduced after the immutable taxonomy-v0.1 freeze and retained backward compatibility with legacy source-ID arrays.
+- [x] All canonical concept-definition and claim-source relations were re-audited after the post-freeze registry population batches.
+- [x] Final canonical corpus at closeout: 79 records — 40 concepts, 11 claims, 28 sources.
+- [x] Source-backed canonical records audited for locator coverage: 51.
+- [x] Final locator audit: COMPLETE 51 / PARTIAL 0 / MISSING_ALL 0.
+- [x] Final missing relation-level source edges: 0.
+- [x] Legacy records without locators remain schema-valid by design, but no currently populated canonical concept-definition or claim-source relation remains unlocalized.
+- [x] The final unresolved acuity → critical-print-size relation was not forced onto an insufficient locator: its source was corrected from Legge & Bigelow (2011) to Xiong et al. (2022), which directly supports the directional association.
+- [x] Locator retrofit work did not alter proposition identity for unchanged claims.
+- [x] No schema, controlled-vocabulary, predicate, locus, runtime-contract, or Foundation change was required during the retrofit closeout.
+- [x] Permanent self-tests PASS; canonical checker PASS with 0 warnings; git diff --check clean.
+- [x] Canonical PF-001 closure checkpoint: e6b129d (provenance: correct acuity-CPS source and close PF-001).
+- [x] Outcome: PF001_LOCATOR_RETROFIT_COMPLETE.
