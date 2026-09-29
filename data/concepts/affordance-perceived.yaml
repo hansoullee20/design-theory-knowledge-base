@@ -1,29 +1,34 @@
 id: concept:affordance-perceived
 kind: concept
-label: "Perceived affordance"
+label: Perceived affordance
 aliases:
-  - "perceived action possibility"
-definition: "An action possibility that a user perceives to be available in an interface or artifact, whether or not the corresponding action is actually possible."
+- perceived action possibility
+definition: An action possibility that a user perceives to be available in an interface or artifact, whether or not the corresponding action is actually possible.
 definition_sources:
-  - source:norman-1999-affordance-conventions-design
+- source:norman-1999-affordance-conventions-design
 locus:
-  - experience
+- experience
 facets:
-  - interaction
+- interaction
 disciplines:
-  - interface-interaction-design
+- interface-interaction-design
 knowledge_origin:
-  - cognitive-psychology
-  - design-practice
+- cognitive-psychology
+- design-practice
 traditions:
-  - ecological-psychology
-  - cognitive-engineering-hci
+- ecological-psychology
+- cognitive-engineering-hci
 is_a: []
 part_of: []
 related:
-  - concept:affordance-ecological
-  - concept:signifier
+- concept:affordance-ecological
+- concept:signifier
 record_status: draft
 replaced_by: []
-notes: "Pilot sense separated from Gibson's ecological affordance following Norman's explicit distinction between real and perceived affordances."
-schema_version: "0.1"
+notes: Pilot sense separated from Gibson's ecological affordance following Norman's explicit distinction between real and perceived affordances.
+schema_version: '0.1'
+definition_source_locators:
+- source: source:norman-1999-affordance-conventions-design
+  selector:
+    type: SectionSelector
+    value: Perceived Affordance
