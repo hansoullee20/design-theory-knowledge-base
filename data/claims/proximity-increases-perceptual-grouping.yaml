@@ -22,3 +22,7 @@ source_locators:
   selector:
     type: SectionSelector
     value: 4.2.1 Proximity
+- source: source:kubovy-holcombe-wagemans-1998-proximity
+  selector:
+    type: SectionSelector
+    value: Abstract
