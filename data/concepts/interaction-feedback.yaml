@@ -1,0 +1,32 @@
+id: concept:interaction-feedback
+kind: concept
+label: Interaction feedback
+aliases:
+- user-action feedback
+definition: Information presented by an interactive system in response to a user-initiated action to indicate the action's status, success or failure, result, or resulting state.
+definition_sources:
+- source:w3c-coga-provide-feedback
+definition_source_locators:
+- source: source:w3c-coga-provide-feedback
+  selector:
+    type: SectionSelector
+    value: More Details
+locus:
+- artifact
+facets:
+- interaction
+disciplines:
+- interface-interaction-design
+knowledge_origin:
+- standards-body
+- design-practice
+traditions: []
+is_a: []
+part_of: []
+related:
+- concept:signifier
+- concept:affordance-perceived
+record_status: draft
+replaced_by: []
+notes: System-response sense only. Status messages are a narrower future subtype; evaluative or design-process feedback is a different practice-level sense.
+schema_version: '0.1'

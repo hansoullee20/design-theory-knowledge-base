@@ -1,0 +1,8 @@
+id: source:w3c-coga-provide-feedback
+kind: source
+citation: 'World Wide Web Consortium (W3C), Web Accessibility Initiative (WAI). Cognitive Accessibility Design Pattern: Provide Feedback. Supplemental Guidance to WCAG 2. Content first published 29 April 2021.'
+source_type: web
+year: 2021
+identifier: ''
+notes: W3C supplemental cognitive-accessibility guidance for providing rapid, recognizable feedback after user actions. This is supplemental guidance, not a WCAG conformance requirement.
+schema_version: '0.1'
