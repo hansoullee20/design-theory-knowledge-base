@@ -411,3 +411,73 @@
 - [x] Final Batch-03 corpus: 88 records — 45 concepts, 11 claims, 32 sources.
 - [x] Final canonical checkpoint: 5eac791.
 - [x] Outcome: `REGISTRY_BATCH_03_COMPLETE_WITH_DEFERRED_SENSES`.
+
+## REGISTRY-BATCH-04A — MECHANISM CANDIDATE ADJUDICATION
+
+- [x] Shifted Batch 04 from glossary expansion toward mechanism/claim population.
+- [x] Adjudicated five candidate mechanisms against existing canonical endpoints and direct source support.
+- [x] Marked three claims READY_TO_MINT:
+  - claim:contrast-visual-influences-perceived-hierarchy
+  - claim:typography-practice-influences-perceived-hierarchy
+  - claim:readability-linguistic-influences-reading-speed
+- [x] Deferred typeface legibility → reading speed because the available evidence did not justify a clean directional claim for the canonical legibility construct.
+- [x] Deferred perceived saturation → figure-ground organization because the available experiment manipulated stimulus/colorimetric saturation rather than the canonical perceived-saturation construct.
+- [x] Required no new concepts for the three admitted claims.
+- [x] Demonstrated no representation failure and no need to reopen taxonomy architecture.
+- [x] Outcome: `PASS_READ_ONLY_ADJUDICATION`.
+
+## REGISTRY-BATCH-04B — EXISTING-ENDPOINT MECHANISM CLAIMS
+
+- [x] Minted claim:contrast-visual-influences-perceived-hierarchy.
+- [x] Minted claim:typography-practice-influences-perceived-hierarchy.
+- [x] Minted claim:readability-linguistic-influences-reading-speed.
+- [x] Added source:nng-2021-visual-hierarchy-ux.
+- [x] Reused source:nng-2025-good-visual-design and source:dubay-2004-principles-of-readability.
+- [x] Added no concepts.
+- [x] Preserved conservative evidence classification and scope qualifications.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 92 records — 45 concepts, 14 claims, 33 sources.
+- [x] Canonical checkpoint: e6f2f30.
+- [x] Outcome: `PASS`.
+
+## REGISTRY-BATCH-04C — GESTALT GROUPING MECHANISM ADJUDICATION
+
+- [x] Selected three additional mechanism-first grouping relations:
+  - visual similarity → perceptual grouping
+  - common region → perceptual grouping
+  - element connectedness → perceptual grouping
+- [x] Determined that each selected mechanism required one new artifact-side concept because the needed endpoint was not already represented.
+- [x] New concepts were justified only as required claim endpoints, not as standalone glossary expansion.
+- [x] Reused source:wagemans-2012-gestalt-i for all three mechanisms.
+- [x] Demonstrated no representation failure and no need to reopen taxonomy architecture.
+- [x] Outcome: `PASS_READ_ONLY_ADJUDICATION`.
+
+## REGISTRY-BATCH-04D — GESTALT GROUPING MECHANISMS
+
+- [x] Minted concept:visual-similarity and claim:visual-similarity-increases-perceptual-grouping.
+- [x] Minted concept:common-region and claim:common-region-influences-perceptual-grouping.
+- [x] Minted concept:element-connectedness and claim:element-connectedness-influences-perceptual-grouping.
+- [x] Reused source:wagemans-2012-gestalt-i with exact section locators.
+- [x] Added no source records.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 98 records — 48 concepts, 17 claims, 33 sources.
+- [x] Canonical checkpoint: 16d9661.
+- [x] Outcome: `PASS`.
+
+## REGISTRY-BATCH-04-CLOSEOUT
+
+- [x] Batch 04 tested a mechanism-first population strategy rather than continued glossary-first expansion.
+- [x] Batch 04 expanded the canonical corpus from 88 to 98 records.
+- [x] Added 6 claims, 3 concepts, and 1 source record.
+- [x] The claim/concept ratio increased from 11/45 (0.244) to 17/48 (0.354).
+- [x] All three new concepts were introduced only because an admitted mechanism required an otherwise missing canonical endpoint.
+- [x] Two weak or mismatched candidate mechanisms were explicitly deferred rather than forced:
+  - typeface legibility → reading speed
+  - perceived saturation → figure-ground organization
+- [x] No representation failure was demonstrated.
+- [x] No schema, controlled-vocabulary, predicate, locus, runtime-contract, or Foundation change was required.
+- [x] Final Batch-04 corpus: 98 records — 48 concepts, 17 claims, 33 sources.
+- [x] Final canonical checkpoint: 16d9661.
+- [x] Outcome: `REGISTRY_BATCH_04_MECHANISM_EXPANSION_COMPLETE`.
