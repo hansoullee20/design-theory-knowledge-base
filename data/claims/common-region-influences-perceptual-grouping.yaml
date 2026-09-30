@@ -1,0 +1,23 @@
+id: claim:common-region-influences-perceptual-grouping
+kind: claim
+statement: Placing visual elements within the same bounded region can influence their perceptual grouping.
+modality: descriptive
+subject: concept:common-region
+predicate: influences
+object: concept:perceptual-grouping
+basis:
+- empirical
+- theoretical
+evidence_status: unassessed
+scope: Visual elements arranged within bounded regions. The grouping effect can interact with other grouping cues and is not asserted as universal or quantitatively constant.
+sources:
+- source:wagemans-2012-gestalt-i
+source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.2.3 Common region
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-04D represents common region as an artifact-side grouping cue and perceptual grouping as the experience-side outcome.
+schema_version: '0.1'

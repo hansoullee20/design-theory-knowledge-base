@@ -1,0 +1,23 @@
+id: claim:element-connectedness-influences-perceptual-grouping
+kind: claim
+statement: Visually connecting otherwise distinct elements can influence their perceptual grouping.
+modality: descriptive
+subject: concept:element-connectedness
+predicate: influences
+object: concept:perceptual-grouping
+basis:
+- empirical
+- theoretical
+evidence_status: unassessed
+scope: Discrete visual elements connected through shared borders or explicit visual connections. The grouping effect can interact with other cues and is not asserted as universal or quantitatively constant.
+sources:
+- source:wagemans-2012-gestalt-i
+source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.2.4 Element connectedness
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-04D adds a mechanism-first artifact-to-experience claim for element connectedness.
+schema_version: '0.1'

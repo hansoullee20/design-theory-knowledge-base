@@ -1,0 +1,28 @@
+id: concept:element-connectedness
+kind: concept
+label: Element connectedness
+aliases:
+- connectedness
+definition: The visual connectedness of otherwise distinct elements through a shared border or explicit connection.
+definition_sources:
+- source:wagemans-2012-gestalt-i
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.2.4 Element connectedness
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions:
+- gestalt
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Artifact-side connectedness cue. Kept distinct from perceptual grouping as the resulting experience.
+schema_version: '0.1'

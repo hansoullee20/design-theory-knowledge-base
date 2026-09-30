@@ -1,0 +1,27 @@
+id: concept:common-region
+kind: concept
+label: Common region
+aliases: []
+definition: An arrangement in which visual elements lie within the same bounded region.
+definition_sources:
+- source:wagemans-2012-gestalt-i
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.2.3 Common region
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions:
+- gestalt
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: 'Artifact-side grouping cue: elements share a bounded visual region. The perceptual grouping that may result remains a separate experience-locus concept.'
+schema_version: '0.1'

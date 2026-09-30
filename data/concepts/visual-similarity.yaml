@@ -1,0 +1,28 @@
+id: concept:visual-similarity
+kind: concept
+label: Visual similarity
+aliases:
+- similarity
+definition: The degree to which visual elements are alike in perceptible features such as color, size, or orientation.
+definition_sources:
+- source:wagemans-2012-gestalt-i
+definition_source_locators:
+- source: source:wagemans-2012-gestalt-i
+  selector:
+    type: SectionSelector
+    value: 3.1 Introduction
+locus:
+- artifact
+facets: []
+disciplines: []
+knowledge_origin:
+- perceptual-science
+traditions:
+- gestalt
+is_a: []
+part_of: []
+related: []
+record_status: draft
+replaced_by: []
+notes: Artifact-side similarity relation used in visual perceptual-grouping mechanisms. Distinct from the viewer's resulting grouping experience.
+schema_version: '0.1'
