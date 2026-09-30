@@ -1,0 +1,22 @@
+id: claim:typography-practice-influences-perceived-hierarchy
+kind: claim
+statement: Typographic choices made in typography practice, including relative size and weight, can influence the visual hierarchy that viewers perceive.
+modality: descriptive
+subject: concept:typography-practice
+predicate: influences
+object: concept:hierarchy-perceived
+basis:
+- expert-opinion
+evidence_status: unassessed
+scope: Design-practice guidance for typographic choices in visual and interface layouts. The cited source describes a typographic system as establishing visual hierarchy through choices such as size and weight. The claim is not a universal effect of every typography practice and does not assert a quantified causal magnitude.
+sources:
+- source:nng-2025-good-visual-design
+source_locators:
+- source: source:nng-2025-good-visual-design
+  selector:
+    type: SectionSelector
+    value: 'Visual Principle: Use of a Typographic System'
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-04B adds a practice-to-experience mechanism claim using existing endpoints; artifact-side typographic properties remain separate concepts.
+schema_version: '0.1'

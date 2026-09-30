@@ -1,0 +1,22 @@
+id: claim:readability-linguistic-influences-reading-speed
+kind: claim
+statement: Differences in linguistic readability can influence reading speed under specified reading conditions.
+modality: descriptive
+subject: concept:readability-linguistic
+predicate: influences
+object: concept:reading-speed
+basis:
+- empirical
+evidence_status: unassessed
+scope: Applies to specified reader populations, texts, and reading tasks reviewed in the cited source. Reading performance also depends on reader ability, prior knowledge, interest, motivation, and other text variables. This claim does not assert a universal monotonic relationship or a single effect size across populations and tasks.
+sources:
+- source:dubay-2004-principles-of-readability
+source_locators:
+- source: source:dubay-2004-principles-of-readability
+  selector:
+    type: SectionSelector
+    value: Reading Performance
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-04B connects the canonical reader-relative linguistic-readability construct to the existing reading-speed outcome while preserving contextual dependence in scope.
+schema_version: '0.1'

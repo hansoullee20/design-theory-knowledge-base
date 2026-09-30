@@ -1,0 +1,22 @@
+id: claim:contrast-visual-influences-perceived-hierarchy
+kind: claim
+statement: Differences in visual contrast can influence the visual hierarchy that viewers perceive in a two-dimensional design.
+modality: descriptive
+subject: concept:contrast-visual
+predicate: influences
+object: concept:hierarchy-perceived
+basis:
+- expert-opinion
+evidence_status: unassessed
+scope: Design-practice guidance for two-dimensional interface, graphic, and print layouts. The cited source describes color and contrast as means of creating hierarchy and directing attention. This claim does not assert a quantified effect size, universal causal law, or equivalence between all forms of contrast.
+sources:
+- source:nng-2021-visual-hierarchy-ux
+source_locators:
+- source: source:nng-2021-visual-hierarchy-ux
+  selector:
+    type: SectionSelector
+    value: 1. Color and contrast
+record_status: draft
+replaced_by: []
+notes: REGISTRY-BATCH-04B connects an existing artifact-locus contrast concept to an existing experience-locus hierarchy concept without introducing a new hierarchy construct.
+schema_version: '0.1'
