@@ -349,3 +349,65 @@
 - [x] Permanent self-tests PASS; canonical checker PASS with 0 warnings; git diff --check clean.
 - [x] Canonical PF-001 closure checkpoint: e6b129d (provenance: correct acuity-CPS source and close PF-001).
 - [x] Outcome: PF001_LOCATOR_RETROFIT_COMPLETE.
+
+## REGISTRY-BATCH-03B — DEFERRED FUNDAMENTALS ADJUDICATION
+
+- [x] Adjudicated the deferred lexical candidates form, color, balance, typography, and feedback without canonical mutation.
+- [x] Determined that bare form, color, balance, typography, and feedback should not be assumed to identify one unqualified canonical sense.
+- [x] Marked concept:form-compositional, concept:visual-balance-perceived, and concept:typography-practice READY_TO_MINT.
+- [x] Marked color and feedback SPLIT_REQUIRED.
+- [x] Demonstrated no representation failure and no need to reopen taxonomy architecture.
+- [x] Outcome: `PASS_READ_ONLY_ADJUDICATION`.
+
+## REGISTRY-BATCH-03C — FORM, BALANCE, AND TYPOGRAPHY
+
+- [x] Minted concept:form-compositional with locus artifact.
+- [x] Minted concept:visual-balance-perceived with locus experience.
+- [x] Minted concept:typography-practice with locus practice.
+- [x] Added Getty AAT sources 300056272, 300056247, and 300195853 with exact Note (English) locators.
+- [x] Added no claims.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 85 records — 43 concepts, 11 claims, 31 sources.
+- [x] Canonical checkpoint: af3d86b.
+- [x] Outcome: `PASS`.
+
+## REGISTRY-BATCH-03D/03E — COLOR AND FEEDBACK SENSE ADJUDICATION
+
+- [x] Adjudicated perceived color separately from psychophysical color.
+- [x] Marked concept:color-perceived READY_TO_MINT using CIE S 017:2020 e-ILV term 17-22-040.
+- [x] Deferred psychophysical color because no active competency question requires the sense and its locus remains intentionally unforced.
+- [x] Adjudicated interaction feedback separately from status-message feedback and evaluative/design-process feedback.
+- [x] Marked concept:interaction-feedback READY_TO_MINT with artifact locus.
+- [x] Deferred status-message feedback as a narrower future subtype.
+- [x] Deferred evaluative/design-process feedback as a distinct practice-level sense.
+- [x] Bare concept:color and concept:feedback were not minted.
+- [x] Demonstrated no representation failure and no need to reopen taxonomy architecture.
+- [x] Outcome: `PASS_READ_ONLY_ADJUDICATION`.
+
+## REGISTRY-BATCH-03F — PERCEIVED COLOR AND INTERACTION FEEDBACK
+
+- [x] Minted concept:color-perceived with locus experience.
+- [x] Reused source:cie-s017-2020-ilv with exact term locator 17-22-040 perceived colour.
+- [x] Minted concept:interaction-feedback with locus artifact.
+- [x] Added source:w3c-coga-provide-feedback with exact section locator More Details.
+- [x] Added no claims.
+- [x] Added no schema, vocabulary, predicate, locus, runtime-contract, or Foundation changes.
+- [x] Canonical checker and permanent self-tests pass with 0 warnings.
+- [x] Corpus after batch: 88 records — 45 concepts, 11 claims, 32 sources.
+- [x] Canonical checkpoint: 5eac791.
+- [x] Outcome: `PASS`.
+
+## REGISTRY-BATCH-03-CLOSEOUT
+
+- [x] Batch 03 expanded the post-freeze fundamentals registry from 78 to 88 canonical records.
+- [x] Added 5 concepts across the deferred-fundamentals sequence: form-compositional, visual-balance-perceived, typography-practice, color-perceived, and interaction-feedback.
+- [x] Added 4 source records and reused the existing CIE S 017:2020 source for perceived color.
+- [x] Added no claims during Batch 03.
+- [x] Sense adjudication prevented bare lexical IDs for form, balance, typography, color, and feedback where ambiguity required qualification.
+- [x] Deferred senses remain explicit rather than forced: psychophysical color, status-message feedback, and evaluative/design-process feedback.
+- [x] No representation failure was demonstrated.
+- [x] No schema, controlled-vocabulary, predicate, locus, runtime-contract, or Foundation change was required.
+- [x] Final Batch-03 corpus: 88 records — 45 concepts, 11 claims, 32 sources.
+- [x] Final canonical checkpoint: 5eac791.
+- [x] Outcome: `REGISTRY_BATCH_03_COMPLETE_WITH_DEFERRED_SENSES`.
